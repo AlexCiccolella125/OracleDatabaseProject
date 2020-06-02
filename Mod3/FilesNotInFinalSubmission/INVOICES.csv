@@ -1,0 +1,13 @@
+invoice_no,invoice_date,invoice_due_date,invoice_ship_date,invoice_po_no,invoice_term,customer_no,sales_rep_no
+20155139,5-May-2015,5-May-2015,5-May-2015,PO813,Due on receipt,5500,100
+20155140,6-May-2015,6-May-2015,6-May-2015,PP180712,Due upon delivery,5501,101
+20155141,7-May-2015,7-May-2015,7-May-2015,3245,2/10 net 30,5502,102
+20155142,8-May-2015,8-May-2015,8-May-2015,P590,Due on receipt,5503,103
+20155143,9-May-2015,11-May-2015,11-May-2015,8345,Due at end of day of receipt,5504,104
+20155144,10-May-2015,12-May-2015,12-May-2015,PN-201872,Due on receipt,5505,100
+20155145,11-May-2015,13-May-2015,13-May-2015,18-0078,Due upon delivery,5506,101
+20155146,12-May-2015,14-May-2015,14-May-2015,617,2/10 net 30,5507,102
+20155147,13-May-2015,15-May-2015,15-May-2015,7714,Due on receipt,5508,103
+20155148,14-May-2015,18-May-2015,18-May-2015,8359,Due at end of day of receipt,5504,104
+20155149,15-May-2015,19-May-2015,19-May-2015,PO827,Due on receipt,5500,100
+20155150,16-May-2015,20-May-2015,20-May-2015,PP180712,Due upon delivery,5501,101

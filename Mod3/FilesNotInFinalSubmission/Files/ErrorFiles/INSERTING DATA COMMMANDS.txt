@@ -1,0 +1,163 @@
+INSERT INTO items_dd (item_code, item_description, item_price_each)
+	VALUES ('PCBS', 'PRE-CUP BANANA SPLIT', 2.00);
+INSERT INTO items_dd (item_code, item_description, item_price_each)	
+	VALUES ('PCCH', 'PRE-CUP CHOCOLATE', 2.00);
+INSERT INTO items_dd (item_code, item_description, item_price_each)	
+	VALUES ('PCCTC', 'PRE-CUP COTTON CANDY', 2.00);
+INSERT INTO items_dd (item_code, item_description, item_price_each)
+	VALUES ('PCRB', 'PRE-CUP RAINBOW ICE', 2.00);
+INSERT INTO items_dd (item_code, item_description, item_price_each)
+	VALUES ('PCCD', 'PRE-CUP COOKIE DOUGH', 3.00);
+INSERT INTO items_dd (item_code, item_description, item_price_each)
+	VALUES ('PCCC', 'PRE-CUP COOKIES N CREAM', 3.00);
+INSERT INTO items_dd (item_code, item_description, item_price_each)
+	VALUES ('PCSD', 'PRE-CUP SNICKERDOODLE', 3.50);
+INSERT INTO items_dd (item_code, item_description, item_price_each)
+	VALUES ('PCCB', 'PRE-CUP BROWNIE BITES', 3.50);
+
+INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+	VALUES (100, 'Manuel', 'Jesus');
+INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+	VALUES (101, 'Arnold', 'John');
+INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+	VALUES (102, 'Smith', 'Keith');
+INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+	VALUES (103, 'Shoeler', 'Pablo');
+
+INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+	VALUES (5000, 'POMPANO BEACH HIGH SCHOOL', '600 NE 13th AVE', 'Pompano Beach', 'FL', '33060', 'Chelson Exume', '9542977714');
+INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+	VALUES (5001, 'FLORIDA ATLANTIC UNIVERSITY', '777 Glades Rd', 'Boca Raton', 'FL', '33431', 'Sandy Carter', '5612976000');
+INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+	VALUES (5002, 'PALM BEACH STATE COLLEGE', '4200 Congress AVE', 'Lake Worth', 'FL', '33461', 'Ava Parker', '5619677222');
+INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+	VALUES (5003, 'BOCA RATON HIGH SCHOOL', '1501 NW 15th Ct', 'Boca Raton', 'FL', '33486', 'Susie King', '5613381400');
+INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+	VALUES (5004, 'BLANCHE ELY HIGH SCHOOL', '1200 NW 6th AVE', 'Pompano Beach', 'FL', '33060', 'Karlton Johnson', '7543220950');
+INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+	VALUES (5005, 'DATABASE ACADEMY', '305 SW 15th ST', 'Boca Raton', 'FL', '33431', 'John Doe', '9542222203');
+INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+	VALUES (5006, 'SCHOOL OF QUALIFIED TEACHERS', '1255 N Federal HWY', 'Deerfield Beach', 'FL', '33442', 'Jim John', '9542090956');
+INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+	VALUES (5007, 'ORACLE HIGH', '411 S Federal HWY', 'Fort Lauderdale', 'FL', '33301', 'Michelle Myers', '9546708954');
+INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+	VALUES (5008, 'JAVA MIDDLE SCHOOL', '1500 SW 30th ST', 'Pompano Beach', 'FL', '33060', 'Kim Rodriguez', '9543220999');
+	
+INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+	VALUES (4000, 'POMPANO BEACH HIGH SCHOOL', '600 NE 13th AVE', 'Pompano Beach', 'FL', '33060', 'Chelson Exume', '9542977714');
+INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+	VALUES (4001, 'FLORIDA ATLANTIC UNIVERSITY', '777 Glades Rd', 'Boca Raton', 'FL', '33431', 'Sandy Carter', '5612976000');
+INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+	VALUES (4002, 'PALM BEACH STATE COLLEGE', '4200 Congress AVE', 'Lake Worth', 'FL', '33461', 'Ava Parker', '5619677222');
+INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+	VALUES (4003, 'BOCA RATON HIGH SCHOOL', '1501 NW 15th Ct', 'Boca Raton', 'FL', '33486', 'Susie King', '5613381400');
+INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+	VALUES (4004, 'BLANCHE ELY HIGH SCHOOL', '1200 NW 6th AVE', 'Pompano Beach', 'FL', '33060', 'Karlton Johnson', '7543220950');
+INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+	VALUES (4005, 'DATABASE ACADEMY', '305 SW 15th ST', 'Boca Raton', 'FL', '33431', 'John Doe', '9542222203');
+INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+	VALUES (4006, 'SCHOOL OF QUALIFIED TEACHERS', '1255 N Federal HWY', 'Deerfield Beach', 'FL', '33442', 'Jim John', '9542090956');
+INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+	VALUES (4007, 'ORACLE HIGH', '411 S Federal HWY', 'Fort Lauderdale', 'FL', '33301', 'Michelle Myers', '9546708954');
+INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+	VALUES (4008, 'JAVA MIDDLE SCHOOL', '1500 SW 30th ST', 'Pompano Beach', 'FL', '33060', 'Kim Rodriguez', '9543220999');
+	
+INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+	VALUES (5500, 4000, 5000);
+INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+	VALUES (5501, 4001, 5001);
+INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+	VALUES (5502, 4002, 5002);
+INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+	VALUES (5503, 4003, 5003);
+INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+	VALUES (5504, 4004, 5004);
+INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+	VALUES (5505, 4005, 5005);
+INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+	VALUES (5506, 4006, 5006);
+INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+	VALUES (5507, 4007, 5007);
+INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+	VALUES (5508, 4008, 5008);
+
+INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+	VALUES ('20155139', '05-MAY-2015', '05-MAY-2015', '05-MAY-2015', 'PO813', 'Due on receipt', 5500, 100);
+INSERT INTOinvoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+	VALUES ('20155140', '5/6/2015', '5/6/2015', '5/6/2015', 'PP180712', 'Due on Delivery', 5501, 101);
+INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+	VALUES ('20155141', '5/7/2015', '5/7/2015', '5/7/2015', '3245', '2/10 net 30', 5502, 102);
+INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+	VALUES ('20155142', '5/8/2015', '5/8/2015', '5/8/2015', 'P590', 'Due on receipt', 5503, 103);
+INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+	VALUES ('20155143', '5/11/2015', '5/11/2015', '5/11/2015', '8345', 'Due on end of day of receipt', 5504, 103);
+INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+	VALUES ('20155144', '5/12/2015', '5/12/2015', '5/12/2015', 'PN-201872', 'Due on receipt', 5505, 100);
+INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+	VALUES ('20155146', '5/13/2015', '5/13/2015', '5/13/2015', '18-0078', 'Due  Delivery', 5506, 101);
+INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+	VALUES ('20155139', '5/14/2015', '5/14/2015', '5/14/2015', '617', '2/10 net 30', 5507, 102);
+INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+	VALUES ('20155139', '5/15/2015', '5/15/2015', '5/15/2015', '7714', 'Due on receipt', 5508, 103);
+INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+	VALUES ('20155139', '5/18/2015', '5/18/2015', '5/18/2015', '8359', 'Due on end of day of receipt', 5504, 103);
+INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+	VALUES ('20155139', '5/19/2015', '5/19/2015', '5/19/2015', 'PO827', 'Due on receipt', 5500, 100);
+INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+	VALUES ('20155139', '5/20/2015', '5/20/2015', '5/20/2015', 'PP180712', 'Due upon Delivery', 5501, 101);
+
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155139', 'PCBS', 24, 2.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155139', 'PCCH', 24, 2.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155139', 'PCCTC', 24, 2.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155139', 'PCRB', 24, 2.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155140', 'PCCD', 12, 3.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155141', 'PCCC', 60, 3.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155141', 'PCCD', 60, 3.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155142', 'PCBS', 60, 2.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155142', 'PCCH', 60, 2.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155142', 'PCCC', 60, 3.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155143', 'PCBS', 36, 2.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155143', 'PCCH', 36, 2.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155143', 'PCBB', 36, 3.50);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155144', 'PCSD', 24, 3.50);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155144', 'PCBB', 48, 3.50);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155145', 'PCBB', 48, 3.50);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155146', 'PCRB', 60, 2.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155146', 'PCCH', 60, 2.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155147', 'PCCD', 60, 3.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155147', 'PCCH', 24, 2.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155148', 'PCCC', 12, 3.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155149', 'PCCH', 24, 2.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155150', 'PCCH', 24, 2.00);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155150', 'PCBB', 60, 3.50);
+INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+	VALUES ('20155150', 'PCSD', 24, 3.50);
+
+
+
+
+

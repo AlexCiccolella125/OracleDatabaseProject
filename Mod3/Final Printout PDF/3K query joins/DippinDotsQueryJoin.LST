@@ -1,0 +1,138 @@
+REM formatting for all tables
+SQL> COLUMN sales_rep_first_name FORMAT A22;
+SQL> COLUMN sales_rep_last_name FORMAT A22;
+SQL> COLUMN invoice_no FORMAT A11;
+SQL> COLUMN invoice_date FORMAT A12;
+SQL> COLUMN invoice_due_date FORMAT A17;
+SQL> COLUMN invoice_ship_date FORMAT A17;
+SQL> COLUMN invoice_po_no FORMAT A14;
+SQL> COLUMN invoice_term FORMAT A18;
+SQL> COLUMN item_code FORMAT A10;
+SQL> COLUMN customer_no FORMAT 9999;
+SQL> COLUMN sales_rep_no FORMAT 999;
+SQL> SET PAGESIZE 33;
+SQL> SET LINESIZE 180;
+SQL> --inner join query
+SQL> --Get me a list of our products that we sold with the amount sold and the item descriptions
+SQL> SELECT items_sold_dd.invoice_no, items_sold_dd.item_quantity_sold, items_dd.item_description
+  2     FROM items_sold_dd
+  3     INNER JOIN items_dd ON items_sold_dd.item_code = items_dd.item_code;
+
+INVOICE_NO  ITEM_QUANTITY_SOLD ITEM_DESCRIPTION                                                                                                                                     
+----------- ------------------ ------------------------------                                                                                                                       
+2015-5139                   24 PRE-CUP BANANA SPLIT                                                                                                                                 
+2015-5139                   24 PRE-CUP CHOCOLATE                                                                                                                                    
+2015-5139                   24 PRE-CUP COTTON CANDY                                                                                                                                 
+2015-5139                   24 PRE-CUP RAINBOW ICE                                                                                                                                  
+2015-5140                   12 PRE-CUP CHOCOLATE COOKIE DOUGH                                                                                                                       
+2015-5141                   60 PRE-CUP COOKIES N CREAM                                                                                                                              
+2015-5141                   60 PRE-CUP CHOCOLATE COOKIE DOUGH                                                                                                                       
+2015-5142                   60 PRE-CUP BANANA SPLIT                                                                                                                                 
+2015-5142                   60 PRE-CUP CHOCOLATE                                                                                                                                    
+2015-5142                   60 PRE-CUP COOKIES N CREAM                                                                                                                              
+2015-5143                   36 PRE-CUP BANANA SPLIT                                                                                                                                 
+2015-5143                   36 PRE-CUP CHOCOLATE                                                                                                                                    
+2015-5143                   36 PRE-CUP COTTON CANDY                                                                                                                                 
+2015-5144                   24 PRE-CUP COOKIES N CREAM                                                                                                                              
+2015-5144                   48 PRE-CUP BANANA SPLIT                                                                                                                                 
+2015-5146                   60 PRE-CUP RAINBOW ICE                                                                                                                                  
+2015-5146                   60 PRE-CUP CHOCOLATE                                                                                                                                    
+2015-5147                   60 PRE-CUP CHOCOLATE COOKIE DOUGH                                                                                                                       
+2015-5147                   24 PRE-CUP CHOCOLATE                                                                                                                                    
+2015-5148                   12 PRE-CUP COOKIES N CREAM                                                                                                                              
+2015-5149                   24 PRE-CUP CHOCOLATE                                                                                                                                    
+2015-5150                   24 PRE-CUP CHOCOLATE                                                                                                                                    
+2015-5150                   60 PRE-CUP BANANA SPLIT                                                                                                                                 
+2015-5150                   24 PRE-CUP COTTON CANDY                                                                                                                                 
+
+24 rows selected.
+
+SQL> --left outer join query
+SQL> --show me items that did not sell
+SQL> SELECT items_dd.item_code, items_dd.item_description, items_dd.item_price_each
+  2     FROM items_dd
+  3     LEFT OUTER JOIN items_sold_dd ON items_dd.item_code = items_sold_dd.item_code
+  4  WHERE invoice_no IS null;
+
+ITEM_CODE  ITEM_DESCRIPTION               ITEM_PRICE_EACH                                                                                                                           
+---------- ------------------------------ ---------------                                                                                                                           
+PCSD       PRE-CUP SNICKERDOODLE                     3.50                                                                                                                           
+PCBB       PRE-CUP BROWNIE BITES                     3.50                                                                                                                           
+
+SQL> --right outer join query
+SQL> --Get me a list of invoices with their invoice numbers, along with the information of the products that
+SQL> --were sold such as the item codes, quantities sold, descriptions, and unit prices
+SQL> SELECT items_sold_dd.invoice_no, items_sold_dd.item_code, items_sold_dd.item_quantity_sold, items_sold_dd.item_price_each, items_dd.item_description
+  2     FROM items_sold_dd
+  3     RIGHT OUTER JOIN items_dd ON items_sold_dd.item_code = items_dd.item_code;
+
+INVOICE_NO  ITEM_CODE  ITEM_QUANTITY_SOLD ITEM_PRICE_EACH ITEM_DESCRIPTION                                                                                                          
+----------- ---------- ------------------ --------------- ------------------------------                                                                                            
+2015-5139   PCBS                       24            2.00 PRE-CUP BANANA SPLIT                                                                                                      
+2015-5139   PCCH                       24            2.00 PRE-CUP CHOCOLATE                                                                                                         
+2015-5139   PCCTC                      24            2.00 PRE-CUP COTTON CANDY                                                                                                      
+2015-5139   PCRB                       24            2.00 PRE-CUP RAINBOW ICE                                                                                                       
+2015-5140   PCCD                       12            3.00 PRE-CUP CHOCOLATE COOKIE DOUGH                                                                                            
+2015-5141   PCCC                       60            3.00 PRE-CUP COOKIES N CREAM                                                                                                   
+2015-5141   PCCD                       60            3.00 PRE-CUP CHOCOLATE COOKIE DOUGH                                                                                            
+2015-5142   PCBS                       60            2.00 PRE-CUP BANANA SPLIT                                                                                                      
+2015-5142   PCCH                       60            2.00 PRE-CUP CHOCOLATE                                                                                                         
+2015-5142   PCCC                       60            3.00 PRE-CUP COOKIES N CREAM                                                                                                   
+2015-5143   PCBS                       36            2.00 PRE-CUP BANANA SPLIT                                                                                                      
+2015-5143   PCCH                       36            2.00 PRE-CUP CHOCOLATE                                                                                                         
+2015-5143   PCCTC                      36            2.00 PRE-CUP COTTON CANDY                                                                                                      
+2015-5144   PCCC                       24            2.00 PRE-CUP COOKIES N CREAM                                                                                                   
+2015-5144   PCBS                       48            2.00 PRE-CUP BANANA SPLIT                                                                                                      
+2015-5146   PCRB                       60            2.00 PRE-CUP RAINBOW ICE                                                                                                       
+2015-5146   PCCH                       60            2.00 PRE-CUP CHOCOLATE                                                                                                         
+2015-5147   PCCD                       60            3.00 PRE-CUP CHOCOLATE COOKIE DOUGH                                                                                            
+2015-5147   PCCH                       24            2.00 PRE-CUP CHOCOLATE                                                                                                         
+2015-5148   PCCC                       12            3.00 PRE-CUP COOKIES N CREAM                                                                                                   
+2015-5149   PCCH                       24            2.00 PRE-CUP CHOCOLATE                                                                                                         
+2015-5150   PCCH                       24            2.00 PRE-CUP CHOCOLATE                                                                                                         
+2015-5150   PCBS                       60            2.00 PRE-CUP BANANA SPLIT                                                                                                      
+2015-5150   PCCTC                      24            2.00 PRE-CUP COTTON CANDY                                                                                                      
+                                                          PRE-CUP SNICKERDOODLE                                                                                                     
+                                                          PRE-CUP BROWNIE BITES                                                                                                     
+
+26 rows selected.
+
+SQL> --joining four tables
+SQL> --Get me all the invoices with quantity sold, the sales rep name, and item description.
+SQL> SELECT sales_reps_dd.sales_rep_first_name, sales_reps_dd.sales_rep_last_name, items_sold_dd.item_quantity_sold, items_dd.item_description
+  2     FROM invoices_dd
+  3     INNER JOIN sales_reps_dd ON invoices_dd.sales_rep_no = sales_reps_dd.sales_rep_no
+  4     INNER JOIN items_sold_dd ON invoices_dd.invoice_no = items_sold_dd.invoice_no
+  5     INNER JOIN items_dd ON items_sold_dd.item_code = items_dd.item_code;
+
+SALES_REP_FIRST_NAME   SALES_REP_LAST_NAME    ITEM_QUANTITY_SOLD ITEM_DESCRIPTION                                                                                                   
+---------------------- ---------------------- ------------------ ------------------------------                                                                                     
+Jesus                  Manuel                                 24 PRE-CUP BANANA SPLIT                                                                                               
+Jesus                  Manuel                                 24 PRE-CUP CHOCOLATE                                                                                                  
+Jesus                  Manuel                                 24 PRE-CUP COTTON CANDY                                                                                               
+Jesus                  Manuel                                 24 PRE-CUP RAINBOW ICE                                                                                                
+John                   Arnold                                 12 PRE-CUP CHOCOLATE COOKIE DOUGH                                                                                     
+Keith                  Smith                                  60 PRE-CUP COOKIES N CREAM                                                                                            
+Keith                  Smith                                  60 PRE-CUP CHOCOLATE COOKIE DOUGH                                                                                     
+Pablo                  Shoeler                                60 PRE-CUP BANANA SPLIT                                                                                               
+Pablo                  Shoeler                                60 PRE-CUP CHOCOLATE                                                                                                  
+Pablo                  Shoeler                                60 PRE-CUP COOKIES N CREAM                                                                                            
+Pablo                  Shoeler                                36 PRE-CUP BANANA SPLIT                                                                                               
+Pablo                  Shoeler                                36 PRE-CUP CHOCOLATE                                                                                                  
+Pablo                  Shoeler                                36 PRE-CUP COTTON CANDY                                                                                               
+Jesus                  Manuel                                 24 PRE-CUP COOKIES N CREAM                                                                                            
+Jesus                  Manuel                                 48 PRE-CUP BANANA SPLIT                                                                                               
+Keith                  Smith                                  60 PRE-CUP RAINBOW ICE                                                                                                
+Keith                  Smith                                  60 PRE-CUP CHOCOLATE                                                                                                  
+Pablo                  Shoeler                                60 PRE-CUP CHOCOLATE COOKIE DOUGH                                                                                     
+Pablo                  Shoeler                                24 PRE-CUP CHOCOLATE                                                                                                  
+Pablo                  Shoeler                                12 PRE-CUP COOKIES N CREAM                                                                                            
+Jesus                  Manuel                                 24 PRE-CUP CHOCOLATE                                                                                                  
+John                   Arnold                                 24 PRE-CUP CHOCOLATE                                                                                                  
+John                   Arnold                                 60 PRE-CUP BANANA SPLIT                                                                                               
+John                   Arnold                                 24 PRE-CUP COTTON CANDY                                                                                               
+
+24 rows selected.
+
+SQL> 
+SQL> 

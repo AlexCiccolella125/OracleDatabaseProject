@@ -1,0 +1,706 @@
+-- create tables
+SQL> -- create items_dd
+SQL> CREATE TABLE items_dd
+  2  (
+  3  item_code CHAR(6)
+  4      CONSTRAINT items_dd_item_code_pk PRIMARY KEY,
+  5  item_description VARCHAR2(30)
+  6      CONSTRAINT items_dd_item_descript_nn NOT NULL,
+  7  item_price_each NUMBER(5,2)
+  8      CONSTRAINT items_dd_item_price_each_nn NOT NULL
+  9  );
+
+Table created.
+
+SQL> -- create sales_reps_dd
+SQL> CREATE TABLE sales_reps_dd
+  2  (
+  3  sales_rep_no NUMBER(4)
+  4      CONSTRAINT sles_reps_dd_sales_rep_no_pk PRIMARY KEY,
+  5  sales_rep_last_name VARCHAR2(30)
+  6      CONSTRAINT sles_reps_dd_sles_rp_lst_nm_nn NOT NULL,
+  7  sales_rep_first_name VARCHAR2(30)
+  8      CONSTRAINT sles_reps_dd_sles_rp_fir_nm_nn NOT NULL
+  9  );
+
+Table created.
+
+SQL> -- create ship_tos_dd
+SQL> CREATE TABLE ship_tos_dd
+  2  (
+  3  ship_to_no NUMBER(4)
+  4      CONSTRAINT shp_tos_dd_shp_to_no_pk PRIMARY KEY,
+  5  ship_to_name VARCHAR2(40)
+  6      CONSTRAINT shp_tos_dd_shp_to_name_nn NOT NULL,
+  7  ship_to_street VARCHAR2(30)
+  8      CONSTRAINT shp_tos_dd_shp_to_str_nn NOT NULL,
+  9  ship_to_city VARCHAR2(35)
+ 10      CONSTRAINT shp_tos_dd_shp_to_cty_nn NOT NULL,
+ 11  ship_to_state CHAR(2)
+ 12      CONSTRAINT shp_tos_dd_shp_to_st_nn NOT NULL,
+ 13  ship_to_zipcode CHAR(5)
+ 14      CONSTRAINT shp_tos_dd_shp_to_zip_nn NOT NULL,
+ 15  ship_to_contact_name VARCHAR2(20)
+ 16      CONSTRAINT shp_tos_dd_shp_to_cont_name_nn NOT NULL,
+ 17  ship_to_phone_no CHAR(10)
+ 18      CONSTRAINT shp_tos_dd_shp_to_ph_no_nn NOT NULL
+ 19  );
+
+Table created.
+
+SQL> -- create bill_tos_dd
+SQL> CREATE TABLE bill_tos_dd
+  2  (
+  3  bill_to_no NUMBER(4)
+  4      CONSTRAINT bil_tos_dd_bil_to_no_pk PRIMARY KEY,
+  5  bill_to_name VARCHAR2(40)
+  6      CONSTRAINT bil_tos_dd_bil_to_name_nn NOT NULL,
+  7  bill_to_street VARCHAR2(30)
+  8      CONSTRAINT bil_tos_dd_bil_to_str_nn NOT NULL,
+  9  bill_to_city VARCHAR2(35)
+ 10      CONSTRAINT bil_tos_dd_bil_to_cty_nn NOT NULL,
+ 11  bill_to_state CHAR(2)
+ 12      CONSTRAINT bil_tos_dd_bil_to_st_nn NOT NULL,
+ 13  bill_to_zipcode CHAR(5)
+ 14      CONSTRAINT bil_tos_dd_bil_to_zip_nn NOT NULL,
+ 15  bill_to_contact_name VARCHAR2(20)
+ 16      CONSTRAINT bil_tos_dd_bil_to_cont_name_nn NOT NULL,
+ 17  bill_to_phone_no CHAR(10)
+ 18      CONSTRAINT bil_tos_dd_bil_to_ph_no_nn NOT NULL
+ 19  );
+
+Table created.
+
+SQL> -- create customers_dd
+SQL> CREATE TABLE customers_dd
+  2  (
+  3  customer_no NUMBER(4)
+  4      CONSTRAINT cust_dd_cust_no_pk PRIMARY KEY,
+  5  bill_to_no NUMBER(4)
+  6      CONSTRAINT cust_dd_bill_to_no_nn NOT NULL
+  7      CONSTRAINT cust_dd_bill_to_no_fk1
+  8          REFERENCES bill_tos_dd (bill_to_no),
+  9  ship_to_no NUMBER(4)
+ 10      CONSTRAINT cust_dd_shp_to_no_nn NOT NULL
+ 11      CONSTRAINT cust_dd_shp_to_no_fk2
+ 12          REFERENCES ship_tos_dd (ship_to_no)
+ 13  );
+
+Table created.
+
+SQL> -- create invoices_dd
+SQL> CREATE TABLE invoices_dd
+  2  (
+  3  invoice_no CHAR(8)
+  4      CONSTRAINT inv_dd_inv_no_pk PRIMARY KEY,
+  5  invoice_date DATE
+  6      CONSTRAINT inv_dd_inv_date_nn NOT NULL,
+  7  invoice_due_date DATE,
+  8  invoice_ship_date DATE
+  9      CONSTRAINT inv_dd_inv_shp_date_nn NOT NULL,
+ 10  invoice_po_no VARCHAR2(8),
+ 11  invoice_term VARCHAR2(20),
+ 12  customer_no NUMBER(4)
+ 13      CONSTRAINT inv_dd_cust_no_nn NOT NULL
+ 14      CONSTRAINT inv_dd_cust_no_fk1
+ 15          REFERENCES customers_dd (customer_no),
+ 16  sales_rep_no NUMBER(4)
+ 17      CONSTRAINT inv_dd_sales_rep_no_nn NOT NULL
+ 18      CONSTRAINT inv_dd_sales_rep_no_fk2
+ 19          REFERENCES sales_reps_dd (sales_rep_no)
+ 20  );
+
+Table created.
+
+SQL> -- create items_sold_dd
+SQL> CREATE TABLE items_sold_dd
+  2  (
+  3  invoice_no CHAR(8)
+  4      CONSTRAINT items_sold_dd_inv_no_fk1
+  5          REFERENCES invoices_dd (invoice_no),
+  6  item_code CHAR(6)
+  7      CONSTRAINT items_sold_dd_item_code_fk2
+  8          REFERENCES items_dd (item_code),
+  9  item_quantity_sold NUMBER(2)
+ 10      CONSTRAINT items_sold_dd_item_qty_sold_nn NOT NULL,
+ 11  item_price_each NUMBER(5,2)
+ 12      CONSTRAINT items_sold_item_price_ea_nn NOT NULL,
+ 13  CONSTRAINT items_sold_inv_no_item_code_pk
+ 14          PRIMARY KEY (invoice_no, item_code)
+ 15  );
+
+Table created.
+
+SQL> CREATE SEQUENCE sales_rep_no_seq
+  2    INCREMENT BY 1
+  3    START WITH 100
+  4    NOCACHE
+  5    NOCYCLE;
+
+Sequence created.
+
+SQL> CREATE SEQUENCE ship_to_no_seq
+  2    INCREMENT BY 1
+  3    START WITH 5000
+  4    NOCACHE
+  5    NOCYCLE;
+
+Sequence created.
+
+SQL> CREATE SEQUENCE bill_to_no_seq
+  2    INCREMENT BY 1
+  3    START WITH 4000
+  4    NOCACHE
+  5    NOCYCLE;
+
+Sequence created.
+
+SQL>  CREATE SEQUENCE customer_no_seq
+  2    INCREMENT BY 1
+  3    START WITH 5500
+  4    NOCACHE
+  5    NOCYCLE;
+
+Sequence created.
+
+SQL> CREATE SEQUENCE invoice_no_seq
+  2  INCREMENT BY 1
+  3  START WITH 20155139
+  4  NOCACHE
+  5  NOCYCLE;
+
+Sequence created.
+
+SQL> --insert data into items_dd
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCBS', 'PRE-CUP BANANA SPLIT', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCH', 'PRE-CUP CHOCOLATE', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCTC', 'PRE-CUP COTTON CANDY', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCRB', 'PRE-CUP RAINBOW ICE', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCD', 'PRE-CUP CHOCOLATE COOKIE DOUGH', 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCC', 'PRE-CUP COOKIES N CREAM', 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCSD', 'PRE-CUP SNICKERDOODLE', 3.50);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCBB', 'PRE-CUP BROWNIE BITES', 3.50);
+
+1 row created.
+
+SQL> --insert data into sales_reps_dd
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (sales_rep_no_seq.nextval, 'Manuel', 'Jesus');
+
+1 row created.
+
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (sales_rep_no_seq.nextval, 'Arnold', 'John');
+
+1 row created.
+
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (sales_rep_no_seq.nextval, 'Smith', 'Keith');
+
+1 row created.
+
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (sales_rep_no_seq.nextval, 'Shoeler', 'Pablo');
+
+1 row created.
+
+SQL> --insert data into ship_tos_dd
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (ship_to_no_seq.nextval, 'POMPANO BEACH HIGH SCHOOL', '600 NE 13th AVE', 'Pompano Beach', 'FL', '33060', 'Chelson Exume', '9542977714');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (ship_to_no_seq.nextval, 'FLORIDA ATLANTIC UNIVERSITY', '777 Glades Rd', 'Boca Raton', 'FL', '33431', 'Sandy Carter', '5612976000');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (ship_to_no_seq.nextval, 'PALM BEACH STATE COLLEGE', '4200 Congress AVE', 'Lake Worth', 'FL', '33461', 'Ava Parker', '5619677222');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (ship_to_no_seq.nextval, 'BOCA RATON HIGH SCHOOL', '1501 NW 15th Ct', 'Boca Raton', 'FL', '33486', 'Susie King', '5613381400');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (ship_to_no_seq.nextval, 'BLANCHE ELY HIGH SCHOOL', '1200 NW 6th AVE', 'Pompano Beach', 'FL', '33060', 'Karlton Johnson', '7543220950');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2  
+
+SQL> --insert data into bill_tos_dd
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (bill_to_no_seq.nextval, 'POMPANO BEACH HIGH SCHOOL', '600 NE 13th AVE', 'Pompano Beach', 'FL', '33060', 'Chelson Exume', '9542977714');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (bill_to_no_seq.nextval, 'FLORIDA ATLANTIC UNIVERSITY', '777 Glades Rd', 'Boca Raton', 'FL', '33431', 'Sandy Carter', '5612976000');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (bill_to_no_seq.nextval, 'PALM BEACH STATE COLLEGE', '4200 Congress AVE', 'Lake Worth', 'FL', '33461', 'Ava Parker', '5619677222');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (bill_to_no_seq.nextval, 'BOCA RATON HIGH SCHOOL', '1501 NW 15th Ct', 'Boca Raton', 'FL', '33486', 'Susie King', '5613381400');
+
+1 row created.
+
+SQL> --insert data into customers_dd
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5500, 4000, 5000);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5501, 4001, 5001);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5502, 4002, 5002);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5503, 4003, 5003);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5504, 4000, 5004);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5505, 4002, 5002);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5506, 4001, 5000);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5507, 4003, 5004);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5508, 4001, 5003);
+
+1 row created.
+
+SQL> --insert data into invoices_dd
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (invoice_no_seq.nextval, '5-May-2015', '5-May-2015', '5-May-2015', 'PO813', 'Due on receipt', 5500, 100);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (invoice_no_seq.nextval, '6-May-2015', '6-May-2015', '6-May-2015', 'PP180712', 'Due upon delivery', 5501, 101);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (invoice_no_seq.nextval, '7-May-2015', '7-May-2015', '7-May-2015', '3245', '2/10 net 30', 5502, 102);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (invoice_no_seq.nextval, '8-May-2015', '8-May-2015', '8-May-2015', 'P590', 'Due on receipt', 5503, 103);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (invoice_no_seq.nextval, '9-May-2015', '11-May-2015', '11-May-2015', '8345', 'Due end of day', 5504, 103);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (invoice_no_seq.nextval, '10-May-2015', '12-May-2015', '12-May-2015', 'PN201872', 'Due on receipt', 5505, 100);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (invoice_no_seq.nextval, '11-May-2015', '13-May-2015', '13-May-2015', '18-0078', 'Due upon delivery', 5506, 101);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (invoice_no_seq.nextval, '12-May-2015', '14-May-2015', '14-May-2015', '617', '2/10 net 30', 5507, 102);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (invoice_no_seq.nextval, '13-May-2015', '15-May-2015', '15-May-2015', '7714', 'Due on receipt', 5508, 103);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (invoice_no_seq.nextval, '14-May-2015', '18-May-2015', '18-May-2015', '8359', 'Due end of day', 5504, 103);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (invoice_no_seq.nextval, '15-May-2015', '19-May-2015', '19-May-2015', 'PO827', 'Due on receipt', 5500, 100);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (invoice_no_seq.nextval, '16-May-2015', '20-May-2015', '20-May-2015', 'PP180712', 'Due upon delivery', 5501, 101);
+
+1 row created.
+
+SQL> --insert data into items_sold_dd
+SQL> 
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155139, 'PCBS', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155139, 'PCCH', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155139, 'PCCTC', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155139, 'PCRB', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155140, 'PCCD', 12, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155141, 'PCCC', 60, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155141, 'PCCD', 60, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155142, 'PCBS', 60, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155142, 'PCCH', 60, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155142, 'PCCC', 60, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155143, 'PCBS', 36, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155143, 'PCCH', 36, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155143, 'PCBB', 36, 3.50);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155144, 'PCSD', 24, 3.50);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155144, 'PCBB', 48, 3.50);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155145, 'PCBB', 48, 3.50);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155146, 'PCRB', 60, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155146, 'PCCH', 60, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155147, 'PCCD', 60, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155147, 'PCCH', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155148, 'PCCC', 12, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155149, 'PCCH', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155150, 'PCCH', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155150, 'PCBB', 60, 3.50);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (20155150, 'PCSD', 24, 3.50);
+
+1 row created.
+
+SQL> -- pulling data from entire item table
+SQL> SELECT ITEM_CODE, ITEM_DESCRIPTION, ITEM_PRICE_EACH
+  2  FROM items_dd;
+
+ITEM_C ITEM_DESCRIPTION               ITEM_PRICE_EACH                           
+------ ------------------------------ ---------------                           
+PCBS   PRE-CUP BANANA SPLIT                         2                           
+PCCH   PRE-CUP CHOCOLATE                            2                           
+PCCTC  PRE-CUP COTTON CANDY                         2                           
+PCRB   PRE-CUP RAINBOW ICE                          2                           
+PCCD   PRE-CUP CHOCOLATE COOKIE DOUGH               3                           
+PCCC   PRE-CUP COOKIES N CREAM                      3                           
+PCSD   PRE-CUP SNICKERDOODLE                      3.5                           
+PCBB   PRE-CUP BROWNIE BITES                      3.5                           
+
+8 rows selected.
+
+SQL> --pulling data from entire sales reps table
+SQL> SELECT SALES_REP_NO, SALES_REP_LAST_NAME, SALES_REP_FIRST_NAME
+  2  FROM sales_reps_dd;
+
+SALES_REP_NO SALES_REP_LAST_NAME            SALES_REP_FIRST_NAME                
+------------ ------------------------------ ------------------------------      
+         100 Manuel                         Jesus                               
+         101 Arnold                         John                                
+         102 Smith                          Keith                               
+         103 Shoeler                        Pablo                               
+
+SQL> --pulling data from entire ship to table
+SQL> SELECT SHIP_TO_NO, SHIP_TO_NAME, SHIP_TO_STREET, SHIP_TO_CITY, SHIP_TO_STATE, SHIP_TO_ZIPCODE, SHIP_TO_CONTACT_NAME, SHIP_TO_PHONE_NO
+  2  FROM ship_tos_dd;
+
+SHIP_TO_NO SHIP_TO_NAME                                                         
+---------- ----------------------------------------                             
+SHIP_TO_STREET                 SHIP_TO_CITY                        SH SHIP_     
+------------------------------ ----------------------------------- -- -----     
+SHIP_TO_CONTACT_NAME SHIP_TO_PH                                                 
+-------------------- ----------                                                 
+      5000 POMPANO BEACH HIGH SCHOOL                                            
+600 NE 13th AVE                Pompano Beach                       FL 33060     
+Chelson Exume        9542977714                                                 
+                                                                                
+      5001 FLORIDA ATLANTIC UNIVERSITY                                          
+777 Glades Rd                  Boca Raton                          FL 33431     
+Sandy Carter         5612976000                                                                                                 
+                                                                                
+      5002 PALM BEACH STATE COLLEGE                                             
+4200 Congress AVE              Lake Worth                          FL 33461     
+Ava Parker           5619677222                                                 
+                                                                                
+      5003 BOCA RATON HIGH SCHOOL                                               
+1501 NW 15th Ct                Boca Raton                          FL 33486                                                     
+Susie King           5613381400                                                 
+                                                                                
+      5004 BLANCHE ELY HIGH SCHOOL                                              
+1200 NW 6th AVE                Pompano Beach                       FL 33060     
+Karlton Johnson      7543220950                                                 
+                                                                                
+
+SQL> --pulling data from entire bill to table
+SQL> SELECT BILL_TO_NO, BILL_TO_NAME, BILL_TO_STREET, BILL_TO_CITY, BILL_TO_STATE, BILL_TO_ZIPCODE, BILL_TO_CONTACT_NAME, BILL_TO_PHONE_NO
+  2  FROM bill_tos_dd;
+
+BILL_TO_NO BILL_TO_NAME                                                         
+---------- ----------------------------------------                             
+BILL_TO_STREET                 BILL_TO_CITY                        BI BILL_     
+------------------------------ ----------------------------------- -- -----     
+BILL_TO_CONTACT_NAME BILL_TO_PH                                                 
+-------------------- ----------                                                 
+      4000 POMPANO BEACH HIGH SCHOOL                                            
+600 NE 13th AVE                Pompano Beach                       FL 33060     
+Chelson Exume        9542977714                                                 
+                                                                                
+      4001 FLORIDA ATLANTIC UNIVERSITY                                          
+777 Glades Rd                  Boca Raton                          FL 33431     
+Sandy Carter         5612976000                                                                                                 
+                                                                                
+      4002 PALM BEACH STATE COLLEGE                                             
+4200 Congress AVE              Lake Worth                          FL 33461     
+Ava Parker           5619677222                                                 
+                                                                                
+      4003 BOCA RATON HIGH SCHOOL                                               
+1501 NW 15th Ct                Boca Raton                          FL 33486                                            
+Susie King           5613381400                                                 
+                                                                                
+
+SQL> --pulling data from entire customers table
+SQL> SELECT CUSTOMER_NO, BILL_TO_NO, SHIP_TO_NO
+  2  FROM customers_dd;
+
+CUSTOMER_NO BILL_TO_NO SHIP_TO_NO                                               
+----------- ---------- ----------                                               
+       5500       4000       5000                                               
+       5501       4001       5001                                               
+       5502       4002       5002                                               
+       5503       4003       5003                                               
+       5504       4000       5004                                               
+       5505       4002       5002                                               
+       5506       4001       5000                                               
+       5507       4003       5004                                               
+       5508       4001       5003                                               
+
+9 rows selected.
+
+SQL> --pulling data from entire invoices table
+SQL> SELECT INVOICE_NO,  INVOICE_DATE, INVOICE_DUE_DATE,  INVOICE_SHIP_DATE, INVOICE_PO_NO, INVOICE_TERM, CUSTOMER_NO, SALES_REP_NO
+  2  FROM invoices_dd;
+
+INVOICE_ INVOICE_D INVOICE_D INVOICE_S INVOICE_ INVOICE_TERM         CUSTOMER_NO
+-------- --------- --------- --------- -------- -------------------- -----------
+SALES_REP_NO                                                                    
+------------                                                                    
+20155139 05-MAY-15 05-MAY-15 05-MAY-15 PO813    Due on receipt              5500
+         100                                                                    
+                                                                                
+20155140 06-MAY-15 06-MAY-15 06-MAY-15 PP180712 Due upon delivery           5501
+         101                                                                    
+                                                                                
+20155141 07-MAY-15 07-MAY-15 07-MAY-15 3245     2/10 net 30                 5502
+         102                                                                    
+                                                                   
+20155142 08-MAY-15 08-MAY-15 08-MAY-15 P590     Due on receipt              5503
+         103                                                                    
+                                                                                
+20155143 09-MAY-15 11-MAY-15 11-MAY-15 8345     Due end of day              5504
+         103                                                                    
+                                                                                
+20155144 10-MAY-15 12-MAY-15 12-MAY-15 PN201872 Due on receipt              5505
+         100                                                                    
+                                                                                                                                                   
+20155145 11-MAY-15 13-MAY-15 13-MAY-15 18-0078  Due upon delivery           5506
+         101                                                                    
+                                                                                
+20155146 12-MAY-15 14-MAY-15 14-MAY-15 617      2/10 net 30                 5507
+         102                                                                    
+                                                                                
+20155147 13-MAY-15 15-MAY-15 15-MAY-15 7714     Due on receipt              5508
+         103                                                                    
+                                                                                                                                                 
+20155148 14-MAY-15 18-MAY-15 18-MAY-15 8359     Due end of day              5504
+         103                                                                    
+                                                                                
+20155149 15-MAY-15 19-MAY-15 19-MAY-15 PO827    Due on receipt              5500
+         100                                                                    
+                                                                                
+20155150 16-MAY-15 20-MAY-15 20-MAY-15 PP180712 Due upon delivery           5501
+         101                                                                    
+                                                                                
+
+12 rows selected.
+
+SQL> --pulling data from entire items sold table
+SQL> SELECT INVOICE_NO, ITEM_CODE, ITEM_QUANTITY_SOLD, ITEM_PRICE_EACH
+  2  FROM items_sold_dd;
+
+INVOICE_ ITEM_C ITEM_QUANTITY_SOLD ITEM_PRICE_EACH                              
+-------- ------ ------------------ ---------------                              
+20155139 PCBS                   24               2                              
+20155139 PCCH                   24               2                              
+20155139 PCCTC                  24               2                              
+20155139 PCRB                   24               2                              
+20155140 PCCD                   12               3                              
+20155141 PCCC                   60               3                              
+20155141 PCCD                   60               3                              
+20155142 PCBS                   60               2                              
+20155142 PCCH                   60               2                              
+20155142 PCCC                   60               3                              
+20155143 PCBS                   36               2                                                         
+20155143 PCCH                   36               2                              
+20155143 PCBB                   36             3.5                              
+20155144 PCSD                   24             3.5                              
+20155144 PCBB                   48             3.5                              
+20155145 PCBB                   48             3.5                              
+20155146 PCRB                   60               2                              
+20155146 PCCH                   60               2                              
+20155147 PCCD                   60               3                              
+20155147 PCCH                   24               2                              
+20155148 PCCC                   12               3                              
+20155149 PCCH                   24               2                                                         
+20155150 PCCH                   24               2                              
+20155150 PCBB                   60             3.5                              
+20155150 PCSD                   24             3.5                              
+
+25 rows selected.
+
+SQL> 

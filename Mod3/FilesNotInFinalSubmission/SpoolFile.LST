@@ -1,0 +1,432 @@
+-- create tables
+SQL> 
+SQL> -- create items_dd
+SQL> 
+SQL> CREATE TABLE items_dd
+  2  (
+  3  item_code CHAR(6)
+  4      CONSTRAINT items_dd_item_code_pk PRIMARY KEY,
+  5  item_description VARCHAR2(30)
+  6      CONSTRAINT items_dd_item_descript_nn NOT NULL,
+  7  item_price_each NUMBER(5,2)
+  8      CONSTRAINT items_dd_item_price_each_nn NOT NULL
+  9  );
+
+Table created.
+
+SQL> -- create sales_reps_dd
+SQL> 
+SQL> CREATE TABLE sales_reps_dd
+  2  (
+  3  sales_rep_no NUMBER(4)
+  4      CONSTRAINT sles_reps_dd_sales_rep_no_pk PRIMARY KEY,
+  5  sales_rep_last_name VARCHAR2(30)
+  6      CONSTRAINT sles_reps_dd_sles_rp_lst_nm_nn NOT NULL,
+  7  sales_rep_first_name VARCHAR2(30)
+  8      CONSTRAINT sles_reps_dd_sles_rp_fir_nm_nn NOT NULL
+  9  );
+
+Table created.
+
+SQL> -- create ship_tos_dd
+SQL> 
+SQL> CREATE TABLE ship_tos_dd
+  2  (
+  3  ship_to_no NUMBER(4)
+  4      CONSTRAINT shp_tos_dd_shp_to_no_pk PRIMARY KEY,
+  5  ship_to_name VARCHAR2(40)
+  6      CONSTRAINT shp_tos_dd_shp_to_name_nn NOT NULL,
+  7  ship_to_street VARCHAR2(30)
+  8      CONSTRAINT shp_tos_dd_shp_to_str_nn NOT NULL,
+  9  ship_to_city VARCHAR2(35)
+ 10      CONSTRAINT shp_tos_dd_shp_to_cty_nn NOT NULL,
+ 11  ship_to_state CHAR(2)
+ 12      CONSTRAINT shp_tos_dd_shp_to_st_nn NOT NULL,
+ 13  ship_to_zipcode CHAR(5)
+ 14      CONSTRAINT shp_tos_dd_shp_to_zip_nn NOT NULL,
+ 15  ship_to_contact_name VARCHAR2(20)
+ 16      CONSTRAINT shp_tos_dd_shp_to_cont_name_nn NOT NULL,
+ 17  ship_to_phone_no CHAR(10)
+ 18      CONSTRAINT shp_tos_dd_shp_to_ph_no_nn NOT NULL
+ 19  );
+
+Table created.
+
+SQL> -- create bill_tos_dd
+SQL> 
+SQL> CREATE TABLE bill_tos_dd
+  2  (
+  3  bill_to_no NUMBER(4)
+  4      CONSTRAINT bil_tos_dd_bil_to_no_pk PRIMARY KEY,
+  5  bill_to_name VARCHAR2(40)
+  6      CONSTRAINT bil_tos_dd_bil_to_name_nn NOT NULL,
+  7  bill_to_street VARCHAR2(30)
+  8      CONSTRAINT bil_tos_dd_bil_to_str_nn NOT NULL,
+  9  bill_to_city VARCHAR2(35)
+ 10      CONSTRAINT bil_tos_dd_bil_to_cty_nn NOT NULL,
+ 11  bill_to_state CHAR(2)
+ 12      CONSTRAINT bil_tos_dd_bil_to_st_nn NOT NULL,
+ 13  bill_to_zipcode CHAR(5)
+ 14      CONSTRAINT bil_tos_dd_bil_to_zip_nn NOT NULL,
+ 15  bill_to_contact_name VARCHAR2(20)
+ 16      CONSTRAINT bil_tos_dd_bil_to_cont_name_nn NOT NULL,
+ 17  bill_to_phone_no CHAR(10)
+ 18      CONSTRAINT bil_tos_dd_bil_to_ph_no_nn NOT NULL
+ 19  );
+
+Table created.
+
+SQL> -- create customers_dd
+SQL> 
+SQL> CREATE TABLE customers_dd
+  2  (
+  3  customer_no NUMBER(4)
+  4      CONSTRAINT cust_dd_cust_no_pk PRIMARY KEY,
+  5  bill_to_no NUMBER(4)
+  6      CONSTRAINT cust_dd_bill_to_no_nn NOT NULL
+  7      CONSTRAINT cust_dd_bill_to_no_fk1
+  8          REFERENCES bill_tos_dd (bill_to_no),
+  9  ship_to_no NUMBER(4)
+ 10      CONSTRAINT cust_dd_shp_to_no_nn NOT NULL
+ 11      CONSTRAINT cust_dd_shp_to_no_fk2
+ 12          REFERENCES ship_tos_dd (ship_to_no)
+ 13  );
+
+Table created.
+
+SQL> -- create invoices_dd
+SQL> 
+SQL> CREATE TABLE invoices_dd
+  2  (
+  3  invoice_no CHAR(8)
+  4      CONSTRAINT inv_dd_inv_no_pk PRIMARY KEY,
+  5  invoice_date DATE
+  6      CONSTRAINT inv_dd_inv_date_nn NOT NULL,
+  7  invoice_due_date DATE,
+  8  invoice_ship_date DATE
+  9      CONSTRAINT inv_dd_inv_shp_date_nn NOT NULL,
+ 10  invoice_po_no VARCHAR2(8),
+ 11  invoice_term VARCHAR2(20),
+ 12  customer_no NUMBER(4)
+ 13      CONSTRAINT inv_dd_cust_no_nn NOT NULL
+ 14      CONSTRAINT inv_dd_cust_no_fk1
+ 15          REFERENCES customers_dd (customer_no),
+ 16  sales_rep_no NUMBER(4)
+ 17      CONSTRAINT inv_dd_sales_rep_no_nn NOT NULL
+ 18      CONSTRAINT inv_dd_sales_rep_no_fk2
+ 19          REFERENCES sales_reps_dd (sales_rep_no)
+ 20  );
+
+Table created.
+
+SQL> -- create items_sold_dd
+SQL> 
+SQL> CREATE TABLE items_sold_dd
+  2  (
+  3  invoice_no CHAR(8)
+  4      CONSTRAINT items_sold_dd_inv_no_fk1
+  5          REFERENCES invoices_dd (invoice_no),
+  6  item_code CHAR(6)
+  7      CONSTRAINT items_sold_dd_item_code_fk2
+  8          REFERENCES items_dd (item_code),
+  9  item_quantity_sold NUMBER(2)
+ 10      CONSTRAINT items_sold_dd_item_qty_sold_nn NOT NULL,
+ 11  item_price_each NUMBER(5,2)
+ 12      CONSTRAINT items_sold_item_price_ea_nn NOT NULL,
+ 13  CONSTRAINT items_sold_inv_no_item_code_pk
+ 14          PRIMARY KEY (invoice_no, item_code)
+ 15  );
+
+Table created.
+
+DESCRIBE items_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEM_CODE                                 NOT NULL CHAR(6)
+ ITEM_DESCRIPTION                          NOT NULL VARCHAR2(30)
+ ITEM_PRICE_EACH                           NOT NULL NUMBER(5,2)
+
+SQL> DESCRIBE sales_reps_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SALES_REP_NO                              NOT NULL NUMBER(4)
+ SALES_REP_LAST_NAME                       NOT NULL VARCHAR2(30)
+ SALES_REP_FIRST_NAME                      NOT NULL VARCHAR2(30)
+
+SQL> DESCRIBE ship_tos_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SHIP_TO_NO                                NOT NULL NUMBER(4)
+ SHIP_TO_NAME                              NOT NULL VARCHAR2(40)
+ SHIP_TO_STREET                            NOT NULL VARCHAR2(30)
+ SHIP_TO_CITY                              NOT NULL VARCHAR2(35)
+ SHIP_TO_STATE                             NOT NULL CHAR(2)
+ SHIP_TO_ZIPCODE                           NOT NULL CHAR(5)
+ SHIP_TO_CONTACT_NAME                      NOT NULL VARCHAR2(20)
+ SHIP_TO_PHONE_NO                          NOT NULL CHAR(10)
+
+SQL> DESCRIBE bill_tos_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BILL_TO_NO                                NOT NULL NUMBER(4)
+ BILL_TO_NAME                              NOT NULL VARCHAR2(40)
+ BILL_TO_STREET                            NOT NULL VARCHAR2(30)
+ BILL_TO_CITY                              NOT NULL VARCHAR2(35)
+ BILL_TO_STATE                             NOT NULL CHAR(2)
+ BILL_TO_ZIPCODE                           NOT NULL CHAR(5)
+ BILL_TO_CONTACT_NAME                      NOT NULL VARCHAR2(20)
+ BILL_TO_PHONE_NO                          NOT NULL CHAR(10)
+
+SQL> DESCRIBE customers_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUSTOMER_NO                               NOT NULL NUMBER(4)
+ BILL_TO_NO                                NOT NULL NUMBER(4)
+ SHIP_TO_NO                                NOT NULL NUMBER(4)
+
+SQL> DESCRIBE invoices_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ INVOICE_NO                                NOT NULL CHAR(8)
+ INVOICE_DATE                              NOT NULL DATE
+ INVOICE_DUE_DATE                                   DATE
+ INVOICE_SHIP_DATE                         NOT NULL DATE
+ INVOICE_PO_NO                                      VARCHAR2(8)
+ INVOICE_TERM                                       VARCHAR2(20)
+ CUSTOMER_NO                               NOT NULL NUMBER(4)
+ SALES_REP_NO                              NOT NULL NUMBER(4)
+
+SQL> DESCRIBE items_sold_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ INVOICE_NO                                NOT NULL CHAR(8)
+ ITEM_CODE                                 NOT NULL CHAR(6)
+ ITEM_QUANTITY_SOLD                        NOT NULL NUMBER(2)
+ ITEM_PRICE_EACH                           NOT NULL NUMBER(5,2)
+
+SQL> 
+
+SQL> --insert data into items_dd
+SQL> 
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCBS', 'PRE-CUP BANANA SPLIT', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCH', 'PRE-CUP CHOCOLATE', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCTC', 'PRE-CUP COTTON CANDY', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCRB', 'PRE-CUP RAINBOW ICE', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCD', 'PRE-CUP COOKIE DOUGH', 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCC', 'PRE-CUP COOKIES N CREAM', 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCSD', 'PRE-CUP SNICKERDOODLE', 3.50);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCBB', 'PRE-CUP BROWNIE BITES', 3.50);
+
+1 row created.
+
+SQL> --insert data into sales_reps_dd
+SQL> 
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (100, 'Manuel', 'Jesus');
+
+1 row created.
+
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (101, 'Arnold', 'John');
+
+1 row created.
+
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (102, 'Smith', 'Keith');
+
+1 row created.
+
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (103, 'Shoeler', 'Pablo');
+
+1 row created.
+
+SQL> --insert data into ship_tos_dd
+SQL> 
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (5000, 'POMPANO BEACH HIGH SCHOOL', '600 NE 13th AVE', 'Pompano Beach', 'FL', '33060', 'Chelson Exume', '9542977714');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (5001, 'FLORIDA ATLANTIC UNIVERSITY', '777 Glades Rd', 'Boca Raton', 'FL', '33431', 'Sandy Carter', '5612976000');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (5002, 'PALM BEACH STATE COLLEGE', '4200 Congress AVE', 'Lake Worth', 'FL', '33461', 'Ava Parker', '5619677222');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (5003, 'BOCA RATON HIGH SCHOOL', '1501 NW 15th Ct', 'Boca Raton', 'FL', '33486', 'Susie King', '5613381400');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (5004, 'BLANCHE ELY HIGH SCHOOL', '1200 NW 6th AVE', 'Pompano Beach', 'FL', '33060', 'Karlton Johnson', '7543220950');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (5005, 'DATABASE ACADEMY', '305 SW 15th ST', 'Boca Raton', 'FL', '33431', 'John Doe', '9542222203');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (5006, 'SCHOOL OF QUALIFIED TEACHERS', '1255 N Federal HWY', 'Deerfield Beach', 'FL', '33442', 'Jim John', '9542090956');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (5007, 'ORACLE HIGH', '411 S Federal HWY', 'Fort Lauderdale', 'FL', '33301', 'Michelle Myers', '9546708954');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (5008, 'JAVA MIDDLE SCHOOL', '1500 SW 30th ST', 'Pompano Beach', 'FL', '33060', 'Kim Rodriguez', '9543220999');
+
+1 row created.
+
+SQL> --insert data into bill_tos_dd
+SQL> 
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (4000, 'POMPANO BEACH HIGH SCHOOL', '600 NE 13th AVE', 'Pompano Beach', 'FL', '33060', 'Chelson Exume', '9542977714');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (4001, 'FLORIDA ATLANTIC UNIVERSITY', '777 Glades Rd', 'Boca Raton', 'FL', '33431', 'Sandy Carter', '5612976000');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (4002, 'PALM BEACH STATE COLLEGE', '4200 Congress AVE', 'Lake Worth', 'FL', '33461', 'Ava Parker', '5619677222');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (4003, 'BOCA RATON HIGH SCHOOL', '1501 NW 15th Ct', 'Boca Raton', 'FL', '33486', 'Susie King', '5613381400');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (4004, 'BLANCHE ELY HIGH SCHOOL', '1200 NW 6th AVE', 'Pompano Beach', 'FL', '33060', 'Karlton Johnson', '7543220950');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (4005, 'DATABASE ACADEMY', '305 SW 15th ST', 'Boca Raton', 'FL', '33431', 'John Doe', '9542222203');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (4006, 'SCHOOL OF QUALIFIED TEACHERS', '1255 N Federal HWY', 'Deerfield Beach', 'FL', '33442', 'Jim John', '9542090956');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (4007, 'ORACLE HIGH', '411 S Federal HWY', 'Fort Lauderdale', 'FL', '33301', 'Michelle Myers', '9546708954');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (4008, 'JAVA MIDDLE SCHOOL', '1500 SW 30th ST', 'Pompano Beach', 'FL', '33060', 'Kim Rodriguez', '9543220999');
+
+1 row created.
+
+SQL> --insert data into customers_dd
+SQL> 
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5500, 4000, 5000);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5501, 4001, 5001);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5502, 4002, 5002);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5503, 4003, 5003);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5504, 4004, 5004);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5505, 4005, 5005);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5506, 4006, 5006);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5507, 4007, 5007);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5508, 4008, 5008);
+
+1 row created.
+
+SQL> --insert data into invoices_dd
+SQL> 
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('20155139', '5-May-2015', '5-May-2015', '5-May-2015', 'PO813', 'Due on receipt', 5500, 100);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('20155140', '6-May-2015', '6-May-2015', '6-May-2015', 'PP180712', 'Due upon delivery', 5501, 101);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('20155141', '7-May-2015', '7-May-2015', '7-May-2015', '3245', '2/10 net 30', 5502, 102);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('20155142', '8-May-2015', '8-May-2015', '8-May-2015', 'P590', 'Due on receipt', 5503, 103);

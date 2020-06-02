@@ -1,0 +1,81 @@
+REM formatting for all tables
+SQL> COLUMN invoice_no FORMAT A11;
+SQL> COLUMN invoice_date FORMAT A12;
+SQL> COLUMN invoice_due_date FORMAT A17;
+SQL> COLUMN invoice_ship_date FORMAT A17;
+SQL> COLUMN invoice_po_no FORMAT A14;
+SQL> COLUMN invoice_term FORMAT A18;
+SQL> COLUMN customer_no FORMAT 9999;
+SQL> COLUMN sales_rep_no FORMAT 999;
+SQL> COLUMN sales_rep_first_name FORMAT A22;
+SQL> COLUMN sales_rep_last_name FORMAT A22;
+SQL> COLUMN ship_to_no FORMAT 9999;
+SQL> COLUMN ship_to_name FORMAT A30;
+SQL> COLUMN ship_to_street FORMAT A25;
+SQL> COLUMN ship_to_city FORMAT A20;
+SQL> COLUMN ship_to_state FORMAT A15;
+SQL> COLUMN ship_to_zipcode FORMAT A15;
+SQL> COLUMN item_description FORMAT A30;
+SQL> COLUMN item_price_each FORMAT 9.99;
+SQL> COLUMN item_code FORMAT A10;
+SQL> COLUMN invoice_no FORMAT A11;
+SQL> COLUMN item_quantity_sold FORMAT 99;
+SQL> COLUMN item_price_each FORMAT 9.99;
+SQL> SET PAGESIZE 33;
+SQL> SET LINESIZE 180;
+SQL> --1 should use AND/OR
+SQL> --Get me a list of all products with a price amount greater than $2.00 with prefix PC in the code
+SQL> SELECT item_code, item_description, item_price_each
+  2  FROM items_dd
+  3  WHERE item_code LIKE 'PC%' AND item_price_each >2;
+
+ITEM_CODE  ITEM_DESCRIPTION               ITEM_PRICE_EACH                                                                                                                           
+---------- ------------------------------ ---------------                                                                                                                           
+PCCD       PRE-CUP CHOCOLATE COOKIE DOUGH            3.00                                                                                                                           
+PCCC       PRE-CUP COOKIES N CREAM                   3.00                                                                                                                           
+PCSD       PRE-CUP SNICKERDOODLE                     3.50                                                                                                                           
+PCBB       PRE-CUP BROWNIE BITES                     3.50                                                                                                                           
+
+SQL> -- 1 should be something other than the above listed choices
+SQL> --query using >=
+SQL> --Get me a list of all sales reps whos sales rep number is greater than or equal to 101
+SQL> SELECT sales_rep_no, sales_rep_first_name, sales_rep_last_name
+  2     FROM sales_reps_dd
+  3     WHERE sales_rep_no >= 101;
+
+SALES_REP_NO SALES_REP_FIRST_NAME   SALES_REP_LAST_NAME                                                                                                                             
+------------ ---------------------- ----------------------                                                                                                                          
+         101 John                   Arnold                                                                                                                                          
+         102 Keith                  Smith                                                                                                                                           
+         103 Pablo                  Shoeler                                                                                                                                         
+
+SQL> --1 should use =
+SQL> --Get me list of invoices that sold item code PCCH
+SQL> SELECT item_code, invoice_no, item_quantity_sold, item_price_each
+  2  FROM items_sold_dd
+  3  WHERE item_code = 'PCCH';
+
+ITEM_CODE  INVOICE_NO  ITEM_QUANTITY_SOLD ITEM_PRICE_EACH                                                                                                                           
+---------- ----------- ------------------ ---------------                                                                                                                           
+PCCH       2015-5139                   24            2.00                                                                                                                           
+PCCH       2015-5142                   60            2.00                                                                                                                           
+PCCH       2015-5143                   36            2.00                                                                                                                           
+PCCH       2015-5146                   60            2.00                                                                                                                           
+PCCH       2015-5147                   24            2.00                                                                                                                           
+PCCH       2015-5149                   24            2.00                                                                                                                           
+PCCH       2015-5150                   24            2.00                                                                                                                           
+
+7 rows selected.
+
+SQL> --1 should use LIKE and wildcard characters
+SQL> --Get me list of the different types of chocolate ice cream
+SQL> SELECT item_code, item_description, item_price_each
+  2  FROM items_dd
+  3  WHERE item_description LIKE '%CHOCOLATE%';
+
+ITEM_CODE  ITEM_DESCRIPTION               ITEM_PRICE_EACH                                                                                                                           
+---------- ------------------------------ ---------------                                                                                                                           
+PCCH       PRE-CUP CHOCOLATE                         2.00                                                                                                                           
+PCCD       PRE-CUP CHOCOLATE COOKIE DOUGH            3.00                                                                                                                           
+
+SQL> 

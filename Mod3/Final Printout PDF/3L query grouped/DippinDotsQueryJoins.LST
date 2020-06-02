@@ -1,0 +1,67 @@
+REM formatting for all tables
+SQL> COLUMN sales_rep_first_name FORMAT A22;
+SQL> COLUMN sales_rep_last_name FORMAT A22;
+SQL> COLUMN invoice_no FORMAT A11;
+SQL> COLUMN invoice_date FORMAT A12;
+SQL> COLUMN invoice_due_date FORMAT A17;
+SQL> COLUMN invoice_ship_date FORMAT A17;
+SQL> COLUMN invoice_po_no FORMAT A14;
+SQL> COLUMN invoice_term FORMAT A18;
+SQL> COLUMN item_code FORMAT A10;
+SQL> COLUMN customer_no FORMAT 9999;
+SQL> COLUMN sales_rep_no FORMAT 999;
+SQL> COLUMN invoice_no FORMAT A32;
+SQL> COLUMN "Total" FORMAT 999.99;
+SQL> SET PAGESIZE 33;
+SQL> SET LINESIZE 180;
+SQL> --query to calculate the grand total for each invoice
+SQL> --Print me out the total for each invoice
+SQL> SELECT invoice_no, SUM(item_quantity_sold * item_price_each) AS "Total income"
+  2  FROM items_sold_dd
+  3  GROUP BY invoice_no;
+
+INVOICE_NO                       Total income                                                                                                                                       
+-------------------------------- ------------                                                                                                                                       
+2015-5140                                  36                                                                                                                                       
+2015-5142                                 420                                                                                                                                       
+2015-5148                                  36                                                                                                                                       
+2015-5146                                 240                                                                                                                                       
+2015-5147                                 228                                                                                                                                       
+2015-5141                                 360                                                                                                                                       
+2015-5144                                 144                                                                                                                                       
+2015-5150                                 216                                                                                                                                       
+2015-5139                                 192                                                                                                                                       
+2015-5149                                  48                                                                                                                                       
+2015-5143                                 216                                                                                                                                       
+
+11 rows selected.
+
+SQL> --query that counts the total number of invoices
+SQL> --How many invoices are there to date?
+SQL> SELECT Count(invoice_no) AS "Count of Invoices"
+  2  FROM invoices_dd;
+
+Count of Invoices                                                                                                                                                                   
+-----------------                                                                                                                                                                   
+               12                                                                                                                                                                   
+
+SQL> --query that counts the number of invoices per sales reps
+SQL> --I need to know how sales each rep has made
+SQL> -- 1 should use the GROUP BY clause
+SQL> SELECT sales_rep_no, COUNT(sales_rep_no) AS "Invoices per Salesrep"
+  2  FROM invoices_dd
+  3  GROUP BY sales_rep_no;
+
+SALES_REP_NO Invoices per Salesrep                                                                                                                                                  
+------------ ---------------------                                                                                                                                                  
+         100                     3                                                                                                                                                  
+         102                     2                                                                                                                                                  
+         101                     3                                                                                                                                                  
+         103                     4                                                                                                                                                  
+
+SQL> --1 should be something other than the above listed choices
+SQL> --Query that counts how much each customer has spent
+SQL> SELECT customer_no, SUM(items_sold_dd.item_quantity_sold * items_sold_dd.item_price_each) AS "Revenue Made"
+  2  FROM invoices_dd
+  3  JOIN items_sold_dd ON invoices_dd.invoice_no = items_sold_dd.invoice_no
+  4  

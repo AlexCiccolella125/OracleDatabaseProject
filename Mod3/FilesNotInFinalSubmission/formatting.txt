@@ -1,0 +1,106 @@
+
+
+SQL> REM  TO DEMONSTRATE DIFFERENT FORMATTING OPTIONS FOR PROBLEM SITUATIONS
+SQL> 
+SQL> REM Problem 1
+SQL> REM Char, varchar2 & date column headings are often too big
+SQL> REM and get truncated.  Or you want to use a header which is
+SQL> REM bigger than the column width
+SQL> REM or you want the heading for a numeric column split across lines
+SQL> REM solution is to have header print on multiple lines
+SQL> 
+SQL> REM before
+SQL> SELECT credit_rating
+  2  FROM s_customer;
+
+CREDIT_RA                                                                                           
+---------                                                                                           
+EXCELLENT                                                                                           
+POOR                                                                                                
+GOOD                                                                                                
+EXCELLENT                                                                                           
+EXCELLENT                                                                                           
+EXCELLENT                                                                                           
+GOOD                                                                                                
+GOOD                                                                                                
+EXCELLENT                                                                                           
+EXCELLENT                                                                                           
+EXCELLENT                                                                                           
+EXCELLENT                                                                                           
+EXCELLENT                                                                                           
+POOR                                                                                                
+POOR                                                                                                
+
+15 rows selected.
+
+SQL> 
+SQL> REM AFTER
+SQL> COLUMN credit_rating HEADING "Credit|Rating" FORMAT A10
+SQL> SELECT credit_rating
+  2  FROM s_customer;
+
+Credit                                                                                              
+Rating                                                                                              
+----------                                                                                          
+EXCELLENT                                                                                           
+POOR                                                                                                
+GOOD                                                                                                
+EXCELLENT                                                                                           
+EXCELLENT                                                                                           
+EXCELLENT                                                                                           
+GOOD                                                                                                
+GOOD                                                                                                
+EXCELLENT                                                                                           
+EXCELLENT                                                                                           
+EXCELLENT                                                                                           
+EXCELLENT                                                                                           
+EXCELLENT                                                                                           
+POOR                                                                                                
+POOR                                                                                                
+
+15 rows selected.
+
+SQL> 
+SQL> 
+SQL> REM Problem 2
+SQL> REM When you use expressions the expression prints as the header
+SQL> REM Fix this by using an alias.  If you also want to format the header
+SQL> REM you must use the column command
+SQL> 
+SQL> REM before
+SQL> SELECT SUM(quantity)
+  2  FROM s_item;
+
+SUM(QUANTITY)                                                                                       
+-------------                                                                                       
+         9174                                                                                       
+
+SQL> 
+SQL> REM with just the alias
+SQL> SELECT SUM(quantity) SOLD
+  2  FROM s_item;
+
+     SOLD                                                                                           
+---------                                                                                           
+     9174                                                                                           
+
+SQL> 
+SQL> 
+SQL> REM after
+SQL> COLUMN SOLD HEADING "Number|Of|Units|Sold" FORMAT 999,999;
+SQL> SELECT SUM(quantity) SOLD
+  2  FROM s_item;
+
+  Number                                                                                            
+      Of                                                                                            
+   Units                                                                                            
+    Sold                                                                                            
+--------                                                                                            
+   9,174                                                                                            
+
+SQL> 
+SQL> REM Remember that COLUMN commands are in effect until
+SQL> REM you change them or
+SQL> REM you exit SQL-PLUS
+SQL> 
+

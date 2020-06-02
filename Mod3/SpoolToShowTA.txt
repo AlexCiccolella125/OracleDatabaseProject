@@ -1,0 +1,792 @@
+SQL> -- create tables
+SQL> -- create items_dd
+SQL> CREATE TABLE items_dd
+  2  (
+  3  item_code CHAR(6)
+  4      CONSTRAINT items_dd_item_code_pk PRIMARY KEY,
+  5  item_description VARCHAR2(30)
+  6      CONSTRAINT items_dd_item_descript_nn NOT NULL,
+  7  item_price_each NUMBER(5,2)
+  8      CONSTRAINT items_dd_item_price_each_nn NOT NULL
+  9  );
+
+Table created.
+
+SQL> -- create sales_reps_dd
+SQL> CREATE TABLE sales_reps_dd
+  2  (
+  3  sales_rep_no NUMBER(4)
+  4      CONSTRAINT sles_reps_dd_sales_rep_no_pk PRIMARY KEY,
+  5  sales_rep_last_name VARCHAR2(30)
+  6      CONSTRAINT sles_reps_dd_sles_rp_lst_nm_nn NOT NULL,
+  7  sales_rep_first_name VARCHAR2(30)
+  8      CONSTRAINT sles_reps_dd_sles_rp_fir_nm_nn NOT NULL
+  9  );
+
+Table created.
+
+SQL> -- create ship_tos_dd
+SQL> CREATE TABLE ship_tos_dd
+  2  (
+  3  ship_to_no NUMBER(4)
+  4      CONSTRAINT shp_tos_dd_shp_to_no_pk PRIMARY KEY,
+  5  ship_to_name VARCHAR2(40)
+  6      CONSTRAINT shp_tos_dd_shp_to_name_nn NOT NULL,
+  7  ship_to_street VARCHAR2(30)
+  8      CONSTRAINT shp_tos_dd_shp_to_str_nn NOT NULL,
+  9  ship_to_city VARCHAR2(35)
+ 10      CONSTRAINT shp_tos_dd_shp_to_cty_nn NOT NULL,
+ 11  ship_to_state CHAR(2)
+ 12      CONSTRAINT shp_tos_dd_shp_to_st_nn NOT NULL,
+ 13  ship_to_zipcode CHAR(5)
+ 14      CONSTRAINT shp_tos_dd_shp_to_zip_nn NOT NULL,
+ 15  ship_to_contact_name VARCHAR2(20)
+ 16      CONSTRAINT shp_tos_dd_shp_to_cont_name_nn NOT NULL,
+ 17  ship_to_phone_no CHAR(10)
+ 18      CONSTRAINT shp_tos_dd_shp_to_ph_no_nn NOT NULL
+ 19  );
+
+Table created.
+
+SQL> -- create bill_tos_dd
+SQL> CREATE TABLE bill_tos_dd
+  2  (
+  3  bill_to_no NUMBER(4)
+  4      CONSTRAINT bil_tos_dd_bil_to_no_pk PRIMARY KEY,
+  5  bill_to_name VARCHAR2(40)
+  6      CONSTRAINT bil_tos_dd_bil_to_name_nn NOT NULL,
+  7  bill_to_street VARCHAR2(30)
+  8      CONSTRAINT bil_tos_dd_bil_to_str_nn NOT NULL,
+  9  bill_to_city VARCHAR2(35)
+ 10      CONSTRAINT bil_tos_dd_bil_to_cty_nn NOT NULL,
+ 11  bill_to_state CHAR(2)
+ 12      CONSTRAINT bil_tos_dd_bil_to_st_nn NOT NULL,
+ 13  bill_to_zipcode CHAR(5)
+ 14      CONSTRAINT bil_tos_dd_bil_to_zip_nn NOT NULL,
+ 15  bill_to_contact_name VARCHAR2(20)
+ 16      CONSTRAINT bil_tos_dd_bil_to_cont_name_nn NOT NULL,
+ 17  bill_to_phone_no CHAR(10)
+ 18      CONSTRAINT bil_tos_dd_bil_to_ph_no_nn NOT NULL
+ 19  );
+
+Table created.
+
+SQL> -- create customers_dd
+SQL> CREATE TABLE customers_dd
+  2  (
+  3  customer_no NUMBER(4)
+  4      CONSTRAINT cust_dd_cust_no_pk PRIMARY KEY,
+  5  bill_to_no NUMBER(4)
+  6      CONSTRAINT cust_dd_bill_to_no_nn NOT NULL
+  7      CONSTRAINT cust_dd_bill_to_no_fk1
+  8          REFERENCES bill_tos_dd (bill_to_no),
+  9  ship_to_no NUMBER(4)
+ 10      CONSTRAINT cust_dd_shp_to_no_nn NOT NULL
+ 11      CONSTRAINT cust_dd_shp_to_no_fk2
+ 12          REFERENCES ship_tos_dd (ship_to_no)
+ 13  );
+
+Table created.
+
+SQL> 
+SQL> -- create invoices_dd
+SQL> 
+SQL> CREATE TABLE invoices_dd
+  2  (
+  3  invoice_no CHAR(9)
+  4      CONSTRAINT inv_dd_inv_no_pk PRIMARY KEY,
+  5  invoice_date DATE
+  6      CONSTRAINT inv_dd_inv_date_nn NOT NULL,
+  7  invoice_due_date DATE,
+  8  invoice_ship_date DATE
+  9      CONSTRAINT inv_dd_inv_shp_date_nn NOT NULL,
+ 10  invoice_po_no VARCHAR2(8),
+ 11  invoice_term VARCHAR2(20),
+ 12  customer_no NUMBER(4)
+ 13      CONSTRAINT inv_dd_cust_no_nn NOT NULL
+ 14      CONSTRAINT inv_dd_cust_no_fk1
+ 15          REFERENCES customers_dd (customer_no),
+ 16  sales_rep_no NUMBER(4)
+ 17      CONSTRAINT inv_dd_sales_rep_no_nn NOT NULL
+ 18      CONSTRAINT inv_dd_sales_rep_no_fk2
+ 19          REFERENCES sales_reps_dd (sales_rep_no)
+ 20  );
+
+Table created.
+
+SQL> -- create items_sold_dd
+SQL> 
+SQL> CREATE TABLE items_sold_dd
+  2  (
+  3  invoice_no CHAR(9)
+  4      CONSTRAINT items_sold_dd_inv_no_fk1
+  5          REFERENCES invoices_dd (invoice_no),
+  6  item_code CHAR(6)
+  7      CONSTRAINT items_sold_dd_item_code_fk2
+  8          REFERENCES items_dd (item_code),
+  9  item_quantity_sold NUMBER(2)
+ 10      CONSTRAINT items_sold_dd_item_qty_sold_nn NOT NULL,
+ 11  item_price_each NUMBER(5,2)
+ 12      CONSTRAINT items_sold_dd_item_price_ea_nn NOT NULL,
+ 13  CONSTRAINT items_sold_inv_no_item_code_pk
+ 14          PRIMARY KEY (invoice_no, item_code)
+ 15  );
+
+Table created.
+
+
+
+
+
+
+
+
+
+SQL> --Describing the tables
+SQL> DESCRIBE items_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEM_CODE                                 NOT NULL CHAR(6)
+ ITEM_DESCRIPTION                          NOT NULL VARCHAR2(30)
+ ITEM_PRICE_EACH                           NOT NULL NUMBER(5,2)
+
+SQL> DESCRIBE sales_reps_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SALES_REP_NO                              NOT NULL NUMBER(4)
+ SALES_REP_LAST_NAME                       NOT NULL VARCHAR2(30)
+ SALES_REP_FIRST_NAME                      NOT NULL VARCHAR2(30)
+
+SQL> DESCRIBE ship_tos_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SHIP_TO_NO                                NOT NULL NUMBER(4)
+ SHIP_TO_NAME                              NOT NULL VARCHAR2(40)
+ SHIP_TO_STREET                            NOT NULL VARCHAR2(30)
+ SHIP_TO_CITY                              NOT NULL VARCHAR2(35)
+ SHIP_TO_STATE                             NOT NULL CHAR(2)
+ SHIP_TO_ZIPCODE                           NOT NULL CHAR(5)
+ SHIP_TO_CONTACT_NAME                      NOT NULL VARCHAR2(20)
+ SHIP_TO_PHONE_NO                          NOT NULL CHAR(10)
+
+SQL> DESCRIBE bill_tos_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BILL_TO_NO                                NOT NULL NUMBER(4)
+ BILL_TO_NAME                              NOT NULL VARCHAR2(40)
+ BILL_TO_STREET                            NOT NULL VARCHAR2(30)
+ BILL_TO_CITY                              NOT NULL VARCHAR2(35)
+ BILL_TO_STATE                             NOT NULL CHAR(2)
+ BILL_TO_ZIPCODE                           NOT NULL CHAR(5)
+ BILL_TO_CONTACT_NAME                      NOT NULL VARCHAR2(20)
+ BILL_TO_PHONE_NO                          NOT NULL CHAR(10)
+
+SQL> DESCRIBE customers_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUSTOMER_NO                               NOT NULL NUMBER(4)
+ BILL_TO_NO                                NOT NULL NUMBER(4)
+ SHIP_TO_NO                                NOT NULL NUMBER(4)
+
+SQL> DESCRIBE invoices_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ INVOICE_NO                                NOT NULL CHAR(9)
+ INVOICE_DATE                              NOT NULL DATE
+ INVOICE_DUE_DATE                                   DATE
+ INVOICE_SHIP_DATE                         NOT NULL DATE
+ INVOICE_PO_NO                                      VARCHAR2(8)
+ INVOICE_TERM                                       VARCHAR2(20)
+ CUSTOMER_NO                               NOT NULL NUMBER(4)
+ SALES_REP_NO                              NOT NULL NUMBER(4)
+
+SQL> DESCRIBE items_sold_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ INVOICE_NO                                NOT NULL CHAR(9)
+ ITEM_CODE                                 NOT NULL CHAR(6)
+ ITEM_QUANTITY_SOLD                        NOT NULL NUMBER(2)
+ ITEM_PRICE_EACH                           NOT NULL NUMBER(5,2)
+
+SQL> REM to get information about constraints:
+SQL> COLUMN constraint_name FORMAT A32;
+SQL> COLUMN column_name FORMAT A20;
+SQL> COLUMN table_name FORMAT A15;
+SQL> SELECT constraint_name, column_name, table_name
+  2  FROM user_cons_columns
+  3  WHERE constraint_name NOT LIKE 'BIN%'
+  4  ORDER BY constraint_name;
+
+CONSTRAINT_NAME                  COLUMN_NAME          TABLE_NAME                
+-------------------------------- -------------------- ---------------           
+BIL_TOS_DD_BIL_TO_CONT_NAME_NN   BILL_TO_CONTACT_NAME BILL_TOS_DD               
+BIL_TOS_DD_BIL_TO_CTY_NN         BILL_TO_CITY         BILL_TOS_DD               
+BIL_TOS_DD_BIL_TO_NAME_NN        BILL_TO_NAME         BILL_TOS_DD               
+BIL_TOS_DD_BIL_TO_NO_PK          BILL_TO_NO           BILL_TOS_DD               
+BIL_TOS_DD_BIL_TO_PH_NO_NN       BILL_TO_PHONE_NO     BILL_TOS_DD               
+BIL_TOS_DD_BIL_TO_STR_NN         BILL_TO_STREET       BILL_TOS_DD               
+BIL_TOS_DD_BIL_TO_ST_NN          BILL_TO_STATE        BILL_TOS_DD               
+BIL_TOS_DD_BIL_TO_ZIP_NN         BILL_TO_ZIPCODE      BILL_TOS_DD               
+CUST_DD_BILL_TO_NO_FK1           BILL_TO_NO           CUSTOMERS_DD              
+CUST_DD_BILL_TO_NO_NN            BILL_TO_NO           CUSTOMERS_DD              
+CUST_DD_CUST_NO_PK               CUSTOMER_NO          CUSTOMERS_DD              
+
+CONSTRAINT_NAME                  COLUMN_NAME          TABLE_NAME                
+-------------------------------- -------------------- ---------------           
+CUST_DD_SHP_TO_NO_FK2            SHIP_TO_NO           CUSTOMERS_DD              
+CUST_DD_SHP_TO_NO_NN             SHIP_TO_NO           CUSTOMERS_DD              
+CUST_S_CUST_CITY_NN              CUSTOMER_CITY        CUSTOMERS_S               
+CUST_S_CUST_FIRST_NAME_NN        CUSTOMER_FIRST_NAME  CUSTOMERS_S               
+CUST_S_CUST_LAST_NAME_NN         CUSTOMER_LAST_NAME   CUSTOMERS_S               
+CUST_S_CUST_NO_PK                CUSTOMER_NO          CUSTOMERS_S               
+CUST_S_CUST_STATE_NN             CUSTOMER_STATE       CUSTOMERS_S               
+CUST_S_CUST_STREET_1_NN          CUSTOMER_STREET_1    CUSTOMERS_S               
+CUST_S_CUST_ZIP_NN               CUSTOMER_ZIP         CUSTOMERS_S               
+INV_DD_CUST_NO_FK1               CUSTOMER_NO          INVOICES_DD               
+INV_DD_CUST_NO_NN                CUSTOMER_NO          INVOICES_DD               
+
+CONSTRAINT_NAME                  COLUMN_NAME          TABLE_NAME                
+-------------------------------- -------------------- ---------------           
+INV_DD_INV_DATE_NN               INVOICE_DATE         INVOICES_DD               
+INV_DD_INV_NO_PK                 INVOICE_NO           INVOICES_DD               
+INV_DD_INV_SHP_DATE_NN           INVOICE_SHIP_DATE    INVOICES_DD               
+INV_DD_SALES_REP_NO_FK2          SALES_REP_NO         INVOICES_DD               
+INV_DD_SALES_REP_NO_NN           SALES_REP_NO         INVOICES_DD               
+INV_S_CUST_NO_FK1                CUSTOMER_NO          INVOICES_S                
+INV_S_CUST_NO_NN                 CUSTOMER_NO          INVOICES_S                
+INV_S_INV_DATE_NN                INVOICE_DATE         INVOICES_S                
+INV_S_INV_DISCOUNT_NN            INVOICE_DISCOUNT     INVOICES_S                
+INV_S_INV_NO_PK                  INVOICE_NO           INVOICES_S                
+INV_S_INV_SALES_TAX_NN           INVOICE_SALES_TAX    INVOICES_S                
+
+CONSTRAINT_NAME                  COLUMN_NAME          TABLE_NAME                
+-------------------------------- -------------------- ---------------           
+INV_S_INV_SHIPPING_NN            INVOICE_SHIPPING     INVOICES_S                
+INV_S_SLSPER_NO_FK2              SALES_PERSON_NO      INVOICES_S                
+INV_S_SLSPER_NO_NN               SALES_PERSON_NO      INVOICES_S                
+ITEMS_DD_ITEM_CODE_PK            ITEM_CODE            ITEMS_DD                  
+ITEMS_DD_ITEM_DESCRIPT_NN        ITEM_DESCRIPTION     ITEMS_DD                  
+ITEMS_DD_ITEM_PRICE_EACH_NN      ITEM_PRICE_EACH      ITEMS_DD                  
+ITEMS_SOLD_DD_INV_NO_FK1         INVOICE_NO           ITEMS_SOLD_DD             
+ITEMS_SOLD_DD_ITEM_CODE_FK2      ITEM_CODE            ITEMS_SOLD_DD             
+ITEMS_SOLD_DD_ITEM_PRICE_EA_NN   ITEM_PRICE_EACH      ITEMS_SOLD_DD             
+ITEMS_SOLD_DD_ITEM_QTY_SOLD_NN   ITEM_QUANTITY_SOLD   ITEMS_SOLD_DD             
+ITEMS_SOLD_INV_NO_ITEM_CODE_PK   ITEM_CODE            ITEMS_SOLD_DD             
+
+CONSTRAINT_NAME                  COLUMN_NAME          TABLE_NAME                
+-------------------------------- -------------------- ---------------           
+ITEMS_SOLD_INV_NO_ITEM_CODE_PK   INVOICE_NO           ITEMS_SOLD_DD             
+PRODSLD_S_INV_NO_FK1             INVOICE_NO           PRODUCTS_SOLD_S           
+PRODSLD_S_INV_NO_PROD_NO_PK      INVOICE_NO           PRODUCTS_SOLD_S           
+PRODSLD_S_INV_NO_PROD_NO_PK      PRODUCT_NO           PRODUCTS_SOLD_S           
+PRODSLD_S_PRODSLD_ITM_SLD_NN     PRODUCT_ITEM_SOLD    PRODUCTS_SOLD_S           
+PRODSLD_S_PRODSLD_UNIT_PR_NN     PRODUCT_UNIT_PRICE   PRODUCTS_SOLD_S           
+PRODSLD_S_PROD_NO_FK2            PRODUCT_NO           PRODUCTS_SOLD_S           
+PROD_S_PROD_DESC_NN              PRODUCT_DESCRIPTION  PRODUCTS_S                
+PROD_S_PROD_NO_PK                PRODUCT_NO           PRODUCTS_S                
+PROD_S_PROD_UNIT_PRICE_NN        PRODUCT_UNIT_PRICE   PRODUCTS_S                
+SHP_TOS_DD_SHP_TO_CONT_NAME_NN   SHIP_TO_CONTACT_NAME SHIP_TOS_DD               
+
+CONSTRAINT_NAME                  COLUMN_NAME          TABLE_NAME                
+-------------------------------- -------------------- ---------------           
+SHP_TOS_DD_SHP_TO_CTY_NN         SHIP_TO_CITY         SHIP_TOS_DD               
+SHP_TOS_DD_SHP_TO_NAME_NN        SHIP_TO_NAME         SHIP_TOS_DD               
+SHP_TOS_DD_SHP_TO_NO_PK          SHIP_TO_NO           SHIP_TOS_DD               
+SHP_TOS_DD_SHP_TO_PH_NO_NN       SHIP_TO_PHONE_NO     SHIP_TOS_DD               
+SHP_TOS_DD_SHP_TO_STR_NN         SHIP_TO_STREET       SHIP_TOS_DD               
+SHP_TOS_DD_SHP_TO_ST_NN          SHIP_TO_STATE        SHIP_TOS_DD               
+SHP_TOS_DD_SHP_TO_ZIP_NN         SHIP_TO_ZIPCODE      SHIP_TOS_DD               
+SLES_REPS_DD_SALES_REP_NO_PK     SALES_REP_NO         SALES_REPS_DD             
+SLES_REPS_DD_SLES_RP_FIR_NM_NN   SALES_REP_FIRST_NAME SALES_REPS_DD             
+SLES_REPS_DD_SLES_RP_LST_NM_NN   SALES_REP_LAST_NAME  SALES_REPS_DD             
+SLSPER_S_SLSPER_FIRST_NAME_NN    SALES_PERSON_FIRST_N SALES_PERSONS_S           
+
+CONSTRAINT_NAME                  COLUMN_NAME          TABLE_NAME                
+-------------------------------- -------------------- ---------------           
+                                 AME                                            
+                                                                                
+SLSPER_S_SLSPER_LAST_NAME_NN     SALES_PERSON_LAST_NA SALES_PERSONS_S           
+                                 ME                                             
+                                                                                
+SLSPER_S_SLSPER_NO_PK            SALES_PERSON_NO      SALES_PERSONS_S           
+
+68 rows selected.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SQL> --Creating Sequences
+SQL> CREATE SEQUENCE sales_rep_no_seq
+  2    INCREMENT BY 1
+  3    START WITH 100
+  4    NOCACHE
+  5    NOCYCLE;
+
+Sequence created.
+
+SQL> 
+SQL> CREATE SEQUENCE ship_to_no_seq
+  2    INCREMENT BY 1
+  3    START WITH 5000
+  4    NOCACHE
+  5    NOCYCLE;
+
+Sequence created.
+
+SQL> 
+SQL> CREATE SEQUENCE bill_to_no_seq
+  2    INCREMENT BY 1
+  3    START WITH 4000
+  4    NOCACHE
+  5    NOCYCLE;
+
+Sequence created.
+
+SQL> 
+SQL>  CREATE SEQUENCE customer_no_seq
+  2    INCREMENT BY 1
+  3    START WITH 5500
+  4    NOCACHE
+  5    NOCYCLE;
+
+Sequence created.
+
+SQL> 
+SQL> 
+SQL> REM to get information about sequences:
+SQL> SELECT sequence_name, increment_by
+  2  FROM user_sequences;
+
+SEQUENCE_NAME                                                                   
+--------------------------------------------------------------------------------
+INCREMENT_BY                                                                    
+------------                                                                    
+BILL_TO_NO_SEQ                                                                  
+           1                                                                    
+                                                                                
+CUSTOMER_NO_SEQ                                                                 
+           1                                                                    
+                                                                                
+CUST_CUST_NO_SEQ                                                                
+           1                                                                    
+                                                                                
+
+SEQUENCE_NAME                                                                   
+--------------------------------------------------------------------------------
+INCREMENT_BY                                                                    
+------------                                                                    
+INVOICE_NO_SEQ                                                                  
+           1                                                                    
+                                                                                
+SALES_REP_NO_SEQ                                                                
+           1                                                                    
+                                                                                
+SHIP_TO_NO_SEQ                                                                  
+           1                                                                    
+                                                                                
+
+6 rows selected.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SQL> --insert data into items_dd
+SQL> 
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCBS', 'PRE-CUP BANANA SPLIT', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCH', 'PRE-CUP CHOCOLATE', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCTC', 'PRE-CUP COTTON CANDY', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCRB', 'PRE-CUP RAINBOW ICE', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCD', 'PRE-CUP CHOCOLATE COOKIE DOUGH', 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCC', 'PRE-CUP COOKIES N CREAM', 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCSD', 'PRE-CUP SNICKERDOODLE', 3.50);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCBB', 'PRE-CUP BROWNIE BITES', 3.50);
+
+1 row created.
+
+SQL> --insert data into sales_reps_dd
+SQL> 
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (sales_rep_no_seq.nextval, 'Manuel', 'Jesus');
+
+1 row created.
+
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (sales_rep_no_seq.nextval, 'Arnold', 'John');
+
+1 row created.
+
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (sales_rep_no_seq.nextval, 'Smith', 'Keith');
+
+1 row created.
+
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (sales_rep_no_seq.nextval, 'Shoeler', 'Pablo');
+
+1 row created.
+
+SQL> 
+SQL> --insert data into ship_tos_dd
+SQL> 
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (ship_to_no_seq.nextval, 'POMPANO BEACH HIGH SCHOOL', '600 NE 13th AVE', 'Pompano Beach', 'FL', '33060', 'Chelson Exume', '9542977714');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (ship_to_no_seq.nextval, 'FLORIDA ATLANTIC UNIVERSITY', '777 Glades Rd', 'Boca Raton', 'FL', '33431', 'Sandy Carter', '5612976000');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (ship_to_no_seq.nextval, 'PALM BEACH STATE COLLEGE', '4200 Congress AVE', 'Lake Worth', 'FL', '33461', 'Ava Parker', '5619677222');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (ship_to_no_seq.nextval, 'BOCA RATON HIGH SCHOOL', '1501 NW 15th Ct', 'Boca Raton', 'FL', '33486', 'Susie King', '5613381400');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (ship_to_no_seq.nextval, 'BLANCHE ELY HIGH SCHOOL', '1200 NW 6th AVE', 'Pompano Beach', 'FL', '33060', 'Karlton Johnson', '7543220950');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2  
+SQL> --insert data into bill_tos_dd
+SQL> 
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (bill_to_no_seq.nextval, 'POMPANO BEACH HIGH SCHOOL', '600 NE 13th AVE', 'Pompano Beach', 'FL', '33060', 'Chelson Exume', '9542977714');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (bill_to_no_seq.nextval, 'FLORIDA ATLANTIC UNIVERSITY', '777 Glades Rd', 'Boca Raton', 'FL', '33431', 'Sandy Carter', '5612976000');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (bill_to_no_seq.nextval, 'PALM BEACH STATE COLLEGE', '4200 Congress AVE', 'Lake Worth', 'FL', '33461', 'Ava Parker', '5619677222');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (bill_to_no_seq.nextval, 'BOCA RATON HIGH SCHOOL', '1501 NW 15th Ct', 'Boca Raton', 'FL', '33486', 'Susie King', '5613381400');
+
+1 row created.
+
+SQL> --insert data into customers_dd
+SQL> 
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5500, 4000, 5000);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5501, 4001, 5001);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5502, 4002, 5002);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5503, 4003, 5003);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5504, 4000, 5004);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5505, 4002, 5002);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5506, 4001, 5000);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5507, 4003, 5004);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5508, 4001, 5003);
+
+1 row created.
+
+SQL> 
+SQL> --insert data into invoices_dd
+SQL> 
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (2015-5139, '5-May-2015', '5-May-2015', '5-May-2015', 'PO813', 'Due on receipt', 5500, 100);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (2015-5140, '6-May-2015', '6-May-2015', '6-May-2015', 'PP180712', 'Due upon delivery', 5501, 101);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (2015-5141, '7-May-2015', '7-May-2015', '7-May-2015', '3245', '2/10 net 30', 5502, 102);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (2015-5142, '8-May-2015', '8-May-2015', '8-May-2015', 'P590', 'Due on receipt', 5503, 103);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (2015-5143, '9-May-2015', '11-May-2015', '11-May-2015', '8345', 'Due end of day', 5504, 103);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (2015-5144, '10-May-2015', '12-May-2015', '12-May-2015', 'PN201872', 'Due on receipt', 5505, 100);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (2015-5145, '11-May-2015', '13-May-2015', '13-May-2015', '18-0078', 'Due upon delivery', 5506, 101);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (2015-5146, '12-May-2015', '14-May-2015', '14-May-2015', '617', '2/10 net 30', 5507, 102);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (2015-5147, '13-May-2015', '15-May-2015', '15-May-2015', '7714', 'Due on receipt', 5508, 103);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (2015-5148, '14-May-2015', '18-May-2015', '18-May-2015', '8359', 'Due end of day', 5504, 103);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (2015-5149, '15-May-2015', '19-May-2015', '19-May-2015', 'PO827', 'Due on receipt', 5500, 100);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES (2015-5150, '16-May-2015', '20-May-2015', '20-May-2015', 'PP180712', 'Due upon delivery', 5501, 101);
+
+1 row created.
+
+SQL> 
+SQL> --insert data into items_sold_dd
+SQL> 
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5139, 'PCBS', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5139, 'PCCH', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5139, 'PCCTC', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5139, 'PCRB', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5140, 'PCCD', 12, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5141, 'PCCC', 60, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5141, 'PCCD', 60, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5142, 'PCBS', 60, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5142, 'PCCH', 60, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5142, 'PCCC', 60, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5143, 'PCBS', 36, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5143, 'PCCH', 36, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5143, 'PCCTC, 36, 2.00);
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5144, 'PCCC', 24, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5144, 'PCBS', 48, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5145, 'PCBS', 48, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5146, 'PCRB', 60, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5146, 'PCCH', 60, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5147, 'PCCD', 60, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5147, 'PCCH', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5148, 'PCCC', 12, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5149, 'PCCH', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5150, 'PCCH', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5150, 'PCBS', 60, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES (2015-5150, 'PCCTC', 24, 2.00);
+
+1 row created.
+
+SQL> 

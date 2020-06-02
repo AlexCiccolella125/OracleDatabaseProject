@@ -1,0 +1,639 @@
+-- pulling data from entire item table
+SQL> 
+SQL> SELECT ITEM_CODE, ITEM_DESCRIPTION, ITEM_PRICE_EACH
+  2  FROM items_dd;
+
+ITEM_C ITEM_DESCRIPTION               ITEM_PRICE_EACH                           
+------ ------------------------------ ---------------                           
+PCBS   PRE-CUP BANANA SPLIT                         2                           
+PCCH   PRE-CUP CHOCOLATE                            2                           
+PCCTC  PRE-CUP COTTON CANDY                         2                           
+PCRB   PRE-CUP RAINBOW ICE                          2                           
+PCCD   PRE-CUP CHOCOLATE COOKIE DOUGH               3                           
+PCCC   PRE-CUP COOKIES N CREAM                      3                           
+PCSD   PRE-CUP SNICKERDOODLE                      3.5                           
+PCBB   PRE-CUP BROWNIE BITES                      3.5                           
+
+8 rows selected.
+
+SQL> 
+SQL> --pulling data from entire sales reps table
+SQL> SELECT SALES_REP_NO, SALES_REP_LAST_NAME, SALES_REP_FIRST_NAME
+  2  FROM sales_reps_dd;
+
+SALES_REP_NO SALES_REP_LAST_NAME            SALES_REP_FIRST_NAME                
+------------ ------------------------------ ------------------------------      
+         100 Manuel                         Jesus                               
+         101 Arnold                         John                                
+         102 Smith                          Keith                               
+         103 Shoeler                        Pablo                               
+
+SQL> 
+SQL> --pulling data from entire ship to table
+SQL> 
+SQL> SELECT SHIP_TO_NO, SHIP_TO_NAME, SHIP_TO_STREET, SHIP_TO_CITY, SHIP_TO_STATE, SHIP_TO_ZIPCODE, SHIP_TO_CONTACT_NAME, SHIP_TO_PHONE_NO
+  2  FROM ship_tos_dd;
+
+SHIP_TO_NO SHIP_TO_NAME                                                         
+---------- ----------------------------------------                             
+SHIP_TO_STREET                 SHIP_TO_CITY                        SH SHIP_     
+------------------------------ ----------------------------------- -- -----     
+SHIP_TO_CONTACT_NAME SHIP_TO_PH                                                 
+-------------------- ----------                                                 
+      5000 POMPANO BEACH HIGH SCHOOL                                            
+600 NE 13th AVE                Pompano Beach                       FL 33060     
+Chelson Exume        9542977714                                                 
+                                                                                
+      5001 FLORIDA ATLANTIC UNIVERSITY                                          
+777 Glades Rd                  Boca Raton                          FL 33431     
+Sandy Carter         5612976000                                                 
+
+SHIP_TO_NO SHIP_TO_NAME                                                         
+---------- ----------------------------------------                             
+SHIP_TO_STREET                 SHIP_TO_CITY                        SH SHIP_     
+------------------------------ ----------------------------------- -- -----     
+SHIP_TO_CONTACT_NAME SHIP_TO_PH                                                 
+-------------------- ----------                                                 
+                                                                                
+      5002 PALM BEACH STATE COLLEGE                                             
+4200 Congress AVE              Lake Worth                          FL 33461     
+Ava Parker           5619677222                                                 
+                                                                                
+      5003 BOCA RATON HIGH SCHOOL                                               
+1501 NW 15th Ct                Boca Raton                          FL 33486     
+
+SHIP_TO_NO SHIP_TO_NAME                                                         
+---------- ----------------------------------------                             
+SHIP_TO_STREET                 SHIP_TO_CITY                        SH SHIP_     
+------------------------------ ----------------------------------- -- -----     
+SHIP_TO_CONTACT_NAME SHIP_TO_PH                                                 
+-------------------- ----------                                                 
+Susie King           5613381400                                                 
+                                                                                
+      5004 BLANCHE ELY HIGH SCHOOL                                              
+1200 NW 6th AVE                Pompano Beach                       FL 33060     
+Karlton Johnson      7543220950                                                 
+                                                                                
+
+SQL> 
+SQL> --pulling data from entire bill to table
+SQL> SELECT BILL_TO_NO, BILL_TO_NAME, BILL_TO_STREET, BILL_TO_CITY, BILL_TO_STATE, BILL_TO_ZIPCODE, BILL_TO_CONTACT_NAME, BILL_TO_PHONE_NO
+  2  FROM bill_tos_dd;
+
+BILL_TO_NO BILL_TO_NAME                                                         
+---------- ----------------------------------------                             
+BILL_TO_STREET                 BILL_TO_CITY                        BI BILL_     
+------------------------------ ----------------------------------- -- -----     
+BILL_TO_CONTACT_NAME BILL_TO_PH                                                 
+-------------------- ----------                                                 
+      4000 POMPANO BEACH HIGH SCHOOL                                            
+600 NE 13th AVE                Pompano Beach                       FL 33060     
+Chelson Exume        9542977714                                                 
+                                                                                
+      4001 FLORIDA ATLANTIC UNIVERSITY                                          
+777 Glades Rd                  Boca Raton                          FL 33431     
+Sandy Carter         5612976000                                                 
+
+BILL_TO_NO BILL_TO_NAME                                                         
+---------- ----------------------------------------                             
+BILL_TO_STREET                 BILL_TO_CITY                        BI BILL_     
+------------------------------ ----------------------------------- -- -----     
+BILL_TO_CONTACT_NAME BILL_TO_PH                                                 
+-------------------- ----------                                                 
+                                                                                
+      4002 PALM BEACH STATE COLLEGE                                             
+4200 Congress AVE              Lake Worth                          FL 33461     
+Ava Parker           5619677222                                                 
+                                                                                
+      4003 BOCA RATON HIGH SCHOOL                                               
+1501 NW 15th Ct                Boca Raton                          FL 33486     
+
+BILL_TO_NO BILL_TO_NAME                                                         
+---------- ----------------------------------------                             
+BILL_TO_STREET                 BILL_TO_CITY                        BI BILL_     
+------------------------------ ----------------------------------- -- -----     
+BILL_TO_CONTACT_NAME BILL_TO_PH                                                 
+-------------------- ----------                                                 
+Susie King           5613381400                                                 
+                                                                                
+
+SQL> 
+SQL> --pulling data from entire customers table
+SQL> SELECT CUSTOMER_NO, BILL_TO_NO, SHIP_TO_NO
+  2  FROM customers_dd;
+
+CUSTOMER_NO BILL_TO_NO SHIP_TO_NO                                               
+----------- ---------- ----------                                               
+       5500       4000       5000                                               
+       5501       4001       5001                                               
+       5502       4002       5002                                               
+       5503       4003       5003                                               
+       5504       4000       5004                                               
+       5505       4002       5002                                               
+       5506       4001       5000                                               
+       5507       4003       5004                                               
+       5508       4001       5003                                               
+
+9 rows selected.
+
+SQL> 
+SQL> --pulling data from entire invoices table
+SQL> 
+SQL> SELECT INVOICE_NO,  INVOICE_DATE, INVOICE_DUE_DATE,  INVOICE_SHIP_DATE, INVOICE_PO_NO, INVOICE_TERM, CUSTOMER_NO, SALES_REP_NO
+  2  FROM invoices_dd;
+
+INVOICE_N INVOICE_D INVOICE_D INVOICE_S INVOICE_ INVOICE_TERM                   
+--------- --------- --------- --------- -------- --------------------           
+CUSTOMER_NO SALES_REP_NO                                                        
+----------- ------------                                                        
+-3124     05-MAY-15 05-MAY-15 05-MAY-15 PO813    Due on receipt                 
+       5500          100                                                        
+                                                                                
+-3125     06-MAY-15 06-MAY-15 06-MAY-15 PP180712 Due upon delivery              
+       5501          101                                                        
+                                                                                
+-3126     07-MAY-15 07-MAY-15 07-MAY-15 3245     2/10 net 30                    
+       5502          102                                                        
+                                                                                
+
+INVOICE_N INVOICE_D INVOICE_D INVOICE_S INVOICE_ INVOICE_TERM                   
+--------- --------- --------- --------- -------- --------------------           
+CUSTOMER_NO SALES_REP_NO                                                        
+----------- ------------                                                        
+-3127     08-MAY-15 08-MAY-15 08-MAY-15 P590     Due on receipt                 
+       5503          103                                                        
+                                                                                
+-3128     09-MAY-15 11-MAY-15 11-MAY-15 8345     Due end of day                 
+       5504          103                                                        
+                                                                                
+-3129     10-MAY-15 12-MAY-15 12-MAY-15 PN201872 Due on receipt                 
+       5505          100                                                        
+                                                                                
+
+INVOICE_N INVOICE_D INVOICE_D INVOICE_S INVOICE_ INVOICE_TERM                   
+--------- --------- --------- --------- -------- --------------------           
+CUSTOMER_NO SALES_REP_NO                                                        
+----------- ------------                                                        
+-3130     11-MAY-15 13-MAY-15 13-MAY-15 18-0078  Due upon delivery              
+       5506          101                                                        
+                                                                                
+-3131     12-MAY-15 14-MAY-15 14-MAY-15 617      2/10 net 30                    
+       5507          102                                                        
+                                                                                
+-3132     13-MAY-15 15-MAY-15 15-MAY-15 7714     Due on receipt                 
+       5508          103                                                        
+                                                                                
+
+INVOICE_N INVOICE_D INVOICE_D INVOICE_S INVOICE_ INVOICE_TERM                   
+--------- --------- --------- --------- -------- --------------------           
+CUSTOMER_NO SALES_REP_NO                                                        
+----------- ------------                                                        
+-3133     14-MAY-15 18-MAY-15 18-MAY-15 8359     Due end of day                 
+       5504          103                                                        
+                                                                                
+-3134     15-MAY-15 19-MAY-15 19-MAY-15 PO827    Due on receipt                 
+       5500          100                                                        
+                                                                                
+-3135     16-MAY-15 20-MAY-15 20-MAY-15 PP180712 Due upon delivery              
+       5501          101                                                        
+                                                                                
+
+12 rows selected.
+
+SQL> --pulling data from entire items sold table
+SQL> 
+SQL> SELECT INVOICE_NO, ITEM_CODE, ITEM_QUANTITY_SOLD, ITEM_PRICE_EACH
+  2  FROM items_sold_dd;
+
+INVOICE_N ITEM_C ITEM_QUANTITY_SOLD ITEM_PRICE_EACH                             
+--------- ------ ------------------ ---------------                             
+-3124     PCBS                   24               2                             
+-3124     PCCH                   24               2                             
+-3124     PCCTC                  24               2                             
+-3124     PCRB                   24               2                             
+-3125     PCCD                   12               3                             
+-3126     PCCC                   60               3                             
+-3126     PCCD                   60               3                             
+-3127     PCBS                   60               2                             
+-3127     PCCH                   60               2                             
+-3127     PCCC                   60               3                             
+-3128     PCBS                   36               2                             
+
+INVOICE_N ITEM_C ITEM_QUANTITY_SOLD ITEM_PRICE_EACH                             
+--------- ------ ------------------ ---------------                             
+-3128     PCCH                   36               2                             
+-3129     PCCC                   24               3                             
+-3129     PCBS                   48               2                             
+-3130     PCBS                   48               2                             
+-3131     PCRB                   60               2                             
+-3131     PCCH                   60               2                             
+-3132     PCCD                   60               3                             
+-3132     PCCH                   24               2                             
+-3133     PCCC                   12               3                             
+-3134     PCCH                   24               2                             
+-3135     PCCH                   24               2                             
+
+INVOICE_N ITEM_C ITEM_QUANTITY_SOLD ITEM_PRICE_EACH                             
+--------- ------ ------------------ ---------------                             
+-3135     PCBS                   60               2                             
+-3135     PCCTC                  24               2                             
+
+24 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> --SECTION 1
+SQL> SELECT invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no
+  2     FROM invoices_dd
+  3     ORDER BY invoice_date ASC;
+
+INVOICE_N INVOICE_D INVOICE_D INVOICE_S INVOICE_ INVOICE_TERM                   
+--------- --------- --------- --------- -------- --------------------           
+CUSTOMER_NO SALES_REP_NO                                                        
+----------- ------------                                                        
+-3124     05-MAY-15 05-MAY-15 05-MAY-15 PO813    Due on receipt                 
+       5500          100                                                        
+                                                                                
+-3125     06-MAY-15 06-MAY-15 06-MAY-15 PP180712 Due upon delivery              
+       5501          101                                                        
+                                                                                
+-3126     07-MAY-15 07-MAY-15 07-MAY-15 3245     2/10 net 30                    
+       5502          102                                                        
+                                                                                
+
+INVOICE_N INVOICE_D INVOICE_D INVOICE_S INVOICE_ INVOICE_TERM                   
+--------- --------- --------- --------- -------- --------------------           
+CUSTOMER_NO SALES_REP_NO                                                        
+----------- ------------                                                        
+-3127     08-MAY-15 08-MAY-15 08-MAY-15 P590     Due on receipt                 
+       5503          103                                                        
+                                                                                
+-3128     09-MAY-15 11-MAY-15 11-MAY-15 8345     Due end of day                 
+       5504          103                                                        
+                                                                                
+-3129     10-MAY-15 12-MAY-15 12-MAY-15 PN201872 Due on receipt                 
+       5505          100                                                        
+                                                                                
+
+INVOICE_N INVOICE_D INVOICE_D INVOICE_S INVOICE_ INVOICE_TERM                   
+--------- --------- --------- --------- -------- --------------------           
+CUSTOMER_NO SALES_REP_NO                                                        
+----------- ------------                                                        
+-3130     11-MAY-15 13-MAY-15 13-MAY-15 18-0078  Due upon delivery              
+       5506          101                                                        
+                                                                                
+-3131     12-MAY-15 14-MAY-15 14-MAY-15 617      2/10 net 30                    
+       5507          102                                                        
+                                                                                
+-3132     13-MAY-15 15-MAY-15 15-MAY-15 7714     Due on receipt                 
+       5508          103                                                        
+                                                                                
+
+INVOICE_N INVOICE_D INVOICE_D INVOICE_S INVOICE_ INVOICE_TERM                   
+--------- --------- --------- --------- -------- --------------------           
+CUSTOMER_NO SALES_REP_NO                                                        
+----------- ------------                                                        
+-3133     14-MAY-15 18-MAY-15 18-MAY-15 8359     Due end of day                 
+       5504          103                                                        
+                                                                                
+-3134     15-MAY-15 19-MAY-15 19-MAY-15 PO827    Due on receipt                 
+       5500          100                                                        
+                                                                                
+-3135     16-MAY-15 20-MAY-15 20-MAY-15 PP180712 Due upon delivery              
+       5501          101                                                        
+                                                                                
+
+12 rows selected.
+
+SQL> 
+SQL> SELECT sales_rep_no, sales_rep_last_name, sales_rep_first_name
+  2     FROM sales_reps_dd
+  3     ORDER BY sales_rep_last_name ASC;
+
+SALES_REP_NO SALES_REP_LAST_NAME            SALES_REP_FIRST_NAME                
+------------ ------------------------------ ------------------------------      
+         101 Arnold                         John                                
+         100 Manuel                         Jesus                               
+         103 Shoeler                        Pablo                               
+         102 Smith                          Keith                               
+
+SQL> 
+SQL> SELECT bill_to_city, bill_to_no, bill_to_name, bill_to_contact_name
+  2     FROM bill_tos_dd
+  3     ORDER BY bill_to_city, bill_to_contact_name;
+
+BILL_TO_CITY                        BILL_TO_NO                                  
+----------------------------------- ----------                                  
+BILL_TO_NAME                             BILL_TO_CONTACT_NAME                   
+---------------------------------------- --------------------                   
+Boca Raton                                4001                                  
+FLORIDA ATLANTIC UNIVERSITY              Sandy Carter                           
+                                                                                
+Boca Raton                                4003                                  
+BOCA RATON HIGH SCHOOL                   Susie King                             
+                                                                                
+Lake Worth                                4002                                  
+PALM BEACH STATE COLLEGE                 Ava Parker                             
+                                                                                
+
+BILL_TO_CITY                        BILL_TO_NO                                  
+----------------------------------- ----------                                  
+BILL_TO_NAME                             BILL_TO_CONTACT_NAME                   
+---------------------------------------- --------------------                   
+Pompano Beach                             4000                                  
+POMPANO BEACH HIGH SCHOOL                Chelson Exume                          
+                                                                                
+
+SQL> 
+SQL>  SELECT ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no
+  2     FROM ship_tos_dd
+  3     ORDER BY ship_to_state, ship_to_zipcode;
+
+SHIP_TO_NO SHIP_TO_NAME                                                         
+---------- ----------------------------------------                             
+SHIP_TO_STREET                 SHIP_TO_CITY                        SH SHIP_     
+------------------------------ ----------------------------------- -- -----     
+SHIP_TO_CONTACT_NAME SHIP_TO_PH                                                 
+-------------------- ----------                                                 
+      5000 POMPANO BEACH HIGH SCHOOL                                            
+600 NE 13th AVE                Pompano Beach                       FL 33060     
+Chelson Exume        9542977714                                                 
+                                                                                
+      5004 BLANCHE ELY HIGH SCHOOL                                              
+1200 NW 6th AVE                Pompano Beach                       FL 33060     
+Karlton Johnson      7543220950                                                 
+
+SHIP_TO_NO SHIP_TO_NAME                                                         
+---------- ----------------------------------------                             
+SHIP_TO_STREET                 SHIP_TO_CITY                        SH SHIP_     
+------------------------------ ----------------------------------- -- -----     
+SHIP_TO_CONTACT_NAME SHIP_TO_PH                                                 
+-------------------- ----------                                                 
+                                                                                
+      5001 FLORIDA ATLANTIC UNIVERSITY                                          
+777 Glades Rd                  Boca Raton                          FL 33431     
+Sandy Carter         5612976000                                                 
+                                                                                
+      5002 PALM BEACH STATE COLLEGE                                             
+4200 Congress AVE              Lake Worth                          FL 33461     
+
+SHIP_TO_NO SHIP_TO_NAME                                                         
+---------- ----------------------------------------                             
+SHIP_TO_STREET                 SHIP_TO_CITY                        SH SHIP_     
+------------------------------ ----------------------------------- -- -----     
+SHIP_TO_CONTACT_NAME SHIP_TO_PH                                                 
+-------------------- ----------                                                 
+Ava Parker           5619677222                                                 
+                                                                                
+      5003 BOCA RATON HIGH SCHOOL                                               
+1501 NW 15th Ct                Boca Raton                          FL 33486     
+Susie King           5613381400                                                 
+                                                                                
+
+SQL> --SECTION 2
+SQL> SELECT item_code, item_description, item_price_each
+  2  FROM items_dd
+  3  WHERE item_code LIKE 'PC%' AND item_price_each >2;
+
+ITEM_C ITEM_DESCRIPTION               ITEM_PRICE_EACH                           
+------ ------------------------------ ---------------                           
+PCCD   PRE-CUP CHOCOLATE COOKIE DOUGH               3                           
+PCCC   PRE-CUP COOKIES N CREAM                      3                           
+PCSD   PRE-CUP SNICKERDOODLE                      3.5                           
+PCBB   PRE-CUP BROWNIE BITES                      3.5                           
+
+SQL> 
+SQL> SELECT sales_rep_no, sales_rep_first_name, sales_rep_last_name
+  2     FROM sales_reps_dd
+  3     WHERE sales_rep_no >= 101;
+
+SALES_REP_NO SALES_REP_FIRST_NAME           SALES_REP_LAST_NAME                 
+------------ ------------------------------ ------------------------------      
+         101 John                           Arnold                              
+         102 Keith                          Smith                               
+         103 Pablo                          Shoeler                             
+
+SQL> 
+SQL> SELECT item_code, invoice_no, item_quantity_sold, item_price_each
+  2  FROM items_sold_dd
+  3  WHERE item_code = 'PCCH';
+
+ITEM_C INVOICE_N ITEM_QUANTITY_SOLD ITEM_PRICE_EACH                             
+------ --------- ------------------ ---------------                             
+PCCH   -3124                     24               2                             
+PCCH   -3127                     60               2                             
+PCCH   -3128                     36               2                             
+PCCH   -3131                     60               2                             
+PCCH   -3132                     24               2                             
+PCCH   -3134                     24               2                             
+PCCH   -3135                     24               2                             
+
+7 rows selected.
+
+SQL> 
+SQL> SELECT item_code, item_description, item_price_each
+  2  FROM items_dd
+  3  WHERE item_description LIKE '%CHOCOLATE%';
+
+ITEM_C ITEM_DESCRIPTION               ITEM_PRICE_EACH                           
+------ ------------------------------ ---------------                           
+PCCH   PRE-CUP CHOCOLATE                            2                           
+PCCD   PRE-CUP CHOCOLATE COOKIE DOUGH               3                           
+
+SQL> 
+SQL> 
+SQL> --SECTION 3
+SQL> --inner join query
+SQL> SELECT items_sold_dd.invoice_no, items_sold_dd.item_quantity_sold, items_dd.item_description
+  2     FROM items_sold_dd
+  3     INNER JOIN items_dd ON items_sold_dd.item_code = items_dd.item_code;
+
+INVOICE_N ITEM_QUANTITY_SOLD ITEM_DESCRIPTION                                   
+--------- ------------------ ------------------------------                     
+-3124                     24 PRE-CUP BANANA SPLIT                               
+-3124                     24 PRE-CUP CHOCOLATE                                  
+-3124                     24 PRE-CUP COTTON CANDY                               
+-3124                     24 PRE-CUP RAINBOW ICE                                
+-3125                     12 PRE-CUP CHOCOLATE COOKIE DOUGH                     
+-3126                     60 PRE-CUP COOKIES N CREAM                            
+-3126                     60 PRE-CUP CHOCOLATE COOKIE DOUGH                     
+-3127                     60 PRE-CUP BANANA SPLIT                               
+-3127                     60 PRE-CUP CHOCOLATE                                  
+-3127                     60 PRE-CUP COOKIES N CREAM                            
+-3128                     36 PRE-CUP BANANA SPLIT                               
+
+INVOICE_N ITEM_QUANTITY_SOLD ITEM_DESCRIPTION                                   
+--------- ------------------ ------------------------------                     
+-3128                     36 PRE-CUP CHOCOLATE                                  
+-3129                     24 PRE-CUP COOKIES N CREAM                            
+-3129                     48 PRE-CUP BANANA SPLIT                               
+-3130                     48 PRE-CUP BANANA SPLIT                               
+-3131                     60 PRE-CUP RAINBOW ICE                                
+-3131                     60 PRE-CUP CHOCOLATE                                  
+-3132                     60 PRE-CUP CHOCOLATE COOKIE DOUGH                     
+-3132                     24 PRE-CUP CHOCOLATE                                  
+-3133                     12 PRE-CUP COOKIES N CREAM                            
+-3134                     24 PRE-CUP CHOCOLATE                                  
+-3135                     24 PRE-CUP CHOCOLATE                                  
+
+INVOICE_N ITEM_QUANTITY_SOLD ITEM_DESCRIPTION                                   
+--------- ------------------ ------------------------------                     
+-3135                     60 PRE-CUP BANANA SPLIT                               
+-3135                     24 PRE-CUP COTTON CANDY                               
+
+24 rows selected.
+
+SQL> 
+SQL> --left outer join query
+SQL> SELECT invoices_dd.invoice_no, invoices_dd.invoice_due_date
+  2     FROM imvoices_dd
+  3     LEFT OUTER JOIN customers_dd ON invoices_dd.customer.no = customers_dd.customer.no;
+   FROM imvoices_dd
+        *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL> 
+SQL> --full outer join query
+SQL> SELECT customers_dd.customer_no, bill_tos_dd.bill_to_name, bill_tos_dd.bill_to_zipcode
+  2     FROM customers_dd
+  3     FULL OUTER JOIN bill_tos_dd ON customers_dd.bill_to_no = bill_tos_dd.bill_to_no;
+
+CUSTOMER_NO BILL_TO_NAME                             BILL_                      
+----------- ---------------------------------------- -----                      
+       5500 POMPANO BEACH HIGH SCHOOL                33060                      
+       5501 FLORIDA ATLANTIC UNIVERSITY              33431                      
+       5502 PALM BEACH STATE COLLEGE                 33461                      
+       5503 BOCA RATON HIGH SCHOOL                   33486                      
+       5504 POMPANO BEACH HIGH SCHOOL                33060                      
+       5505 PALM BEACH STATE COLLEGE                 33461                      
+       5506 FLORIDA ATLANTIC UNIVERSITY              33431                      
+       5507 BOCA RATON HIGH SCHOOL                   33486                      
+       5508 FLORIDA ATLANTIC UNIVERSITY              33431                      
+
+9 rows selected.
+
+SQL> 
+SQL> --Joining four tables
+SQL> SELECT invoices_dd.invoice_no, invoices_dd.invoice_term, sales_reps_dd.sales_rep_no, items_sold_dd.invoice_no, items_sold_dd.item_code
+  2     FROM invoices_dd
+  3     INNER JOIN sales_reps_dd ON invoices_dd.sales_rep_no = sales_reps_dd.sales_rep_no
+  4     INNER JOIN items_sold_dd ON invoices_dd.invoice_no = items_sold_dd.invoice_no
+  5     INNER JOIN items_dd ON items_sold_dd.item_code = items_dd.item_code;
+
+INVOICE_N INVOICE_TERM         SALES_REP_NO INVOICE_N ITEM_C                    
+--------- -------------------- ------------ --------- ------                    
+-3124     Due on receipt                100 -3124     PCBS                      
+-3124     Due on receipt                100 -3124     PCCH                      
+-3124     Due on receipt                100 -3124     PCCTC                     
+-3124     Due on receipt                100 -3124     PCRB                      
+-3125     Due upon delivery             101 -3125     PCCD                      
+-3126     2/10 net 30                   102 -3126     PCCC                      
+-3126     2/10 net 30                   102 -3126     PCCD                      
+-3127     Due on receipt                103 -3127     PCBS                      
+-3127     Due on receipt                103 -3127     PCCC                      
+-3127     Due on receipt                103 -3127     PCCH                      
+-3128     Due end of day                103 -3128     PCBS                      
+
+INVOICE_N INVOICE_TERM         SALES_REP_NO INVOICE_N ITEM_C                    
+--------- -------------------- ------------ --------- ------                    
+-3128     Due end of day                103 -3128     PCCH                      
+-3129     Due on receipt                100 -3129     PCBS                      
+-3129     Due on receipt                100 -3129     PCCC                      
+-3130     Due upon delivery             101 -3130     PCBS                      
+-3131     2/10 net 30                   102 -3131     PCCH                      
+-3131     2/10 net 30                   102 -3131     PCRB                      
+-3132     Due on receipt                103 -3132     PCCD                      
+-3132     Due on receipt                103 -3132     PCCH                      
+-3133     Due end of day                103 -3133     PCCC                      
+-3134     Due on receipt                100 -3134     PCCH                      
+-3135     Due upon delivery             101 -3135     PCBS                      
+
+INVOICE_N INVOICE_TERM         SALES_REP_NO INVOICE_N ITEM_C                    
+--------- -------------------- ------------ --------- ------                    
+-3135     Due upon delivery             101 -3135     PCCH                      
+-3135     Due upon delivery             101 -3135     PCCTC                     
+
+24 rows selected.
+
+SQL> 
+SQL> 
+SQL> --SECTION 4
+SQL> 
+SQL> --Calculated the grand total of each invoice
+SQL> SELECT invoice_no AS "invoice number", SUM(item_quantity_sold * item_price_each) AS "total cost of items"
+  2  FROM items_sold_dd
+  3  GROUP BY invoice_no;
+
+invoice n total cost of items                                                   
+--------- -------------------                                                   
+-3125                      36                                                   
+-3131                     240                                                   
+-3127                     420                                                   
+-3134                      48                                                   
+-3135                     216                                                   
+-3124                     192                                                   
+-3129                     168                                                   
+-3130                      96                                                   
+-3133                      36                                                   
+-3126                     360                                                   
+-3128                     144                                                   
+
+invoice n total cost of items                                                   
+--------- -------------------                                                   
+-3132                     228                                                   
+
+12 rows selected.
+
+SQL> 
+SQL> --counts the total number of invoices
+SQL> SELECT Count(invoice_no) AS "Count of Invoices"
+  2  FROM invoices_dd;
+
+Count of Invoices                                                               
+-----------------                                                               
+               12                                                               
+
+SQL> 
+SQL> --Counts the number of invoices per sales reps
+SQL> SELECT sales_rep_no, COUNT(sales_rep_no) AS "Invoices per Salesrep"
+  2  FROM invoices_dd
+  3  GROUP BY sales_rep_no;
+
+SALES_REP_NO Invoices per Salesrep                                              
+------------ ---------------------                                              
+         100                     3                                              
+         102                     2                                              
+         101                     3                                              
+         103                     4                                              
+
+SQL> 
+SQL> --counts the revenue made by each customer
+SQL> SELECT
+  2  customer_no,
+  3  SUM(items_sold_dd.item_quantity_sold * items_sold_dd.item_price_each) AS "Revenue made"
+  4  FROM invoices_dd
+  5  JOIN items_sold_dd ON items_sold_dd.invoice_no = invoices_dd.invoice_no
+  6  GROUP BY Customer_no;
+
+CUSTOMER_NO Revenue made                                                        
+----------- ------------                                                        
+       5503          420                                                        
+       5500          240                                                        
+       5502          360                                                        
+       5504          180                                                        
+       5501          252                                                        
+       5505          168                                                        
+       5507          240                                                        
+       5508          228                                                        
+       5506           96                                                        
+
+9 rows selected.
+
+SQL> 
+SQL> 

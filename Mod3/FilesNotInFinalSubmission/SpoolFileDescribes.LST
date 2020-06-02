@@ -1,0 +1,66 @@
+DESCRIBE items_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ITEM_CODE                                 NOT NULL CHAR(6)
+ ITEM_DESCRIPTION                          NOT NULL VARCHAR2(30)
+ ITEM_PRICE_EACH                           NOT NULL NUMBER(5,2)
+
+SQL> DESCRIBE sales_reps_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SALES_REP_NO                              NOT NULL NUMBER(4)
+ SALES_REP_LAST_NAME                       NOT NULL VARCHAR2(30)
+ SALES_REP_FIRST_NAME                      NOT NULL VARCHAR2(30)
+
+SQL> DESCRIBE ship_tos_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SHIP_TO_NO                                NOT NULL NUMBER(4)
+ SHIP_TO_NAME                              NOT NULL VARCHAR2(40)
+ SHIP_TO_STREET                            NOT NULL VARCHAR2(30)
+ SHIP_TO_CITY                              NOT NULL VARCHAR2(35)
+ SHIP_TO_STATE                             NOT NULL CHAR(2)
+ SHIP_TO_ZIPCODE                           NOT NULL CHAR(5)
+ SHIP_TO_CONTACT_NAME                      NOT NULL VARCHAR2(20)
+ SHIP_TO_PHONE_NO                          NOT NULL CHAR(10)
+
+SQL> DESCRIBE bill_tos_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BILL_TO_NO                                NOT NULL NUMBER(4)
+ BILL_TO_NAME                              NOT NULL VARCHAR2(40)
+ BILL_TO_STREET                            NOT NULL VARCHAR2(30)
+ BILL_TO_CITY                              NOT NULL VARCHAR2(35)
+ BILL_TO_STATE                             NOT NULL CHAR(2)
+ BILL_TO_ZIPCODE                           NOT NULL CHAR(5)
+ BILL_TO_CONTACT_NAME                      NOT NULL VARCHAR2(20)
+ BILL_TO_PHONE_NO                          NOT NULL CHAR(10)
+
+SQL> DESCRIBE customers_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUSTOMER_NO                               NOT NULL NUMBER(4)
+ BILL_TO_NO                                NOT NULL NUMBER(4)
+ SHIP_TO_NO                                NOT NULL NUMBER(4)
+
+SQL> DESCRIBE invoices_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ INVOICE_NO                                NOT NULL CHAR(8)
+ INVOICE_DATE                              NOT NULL DATE
+ INVOICE_DUE_DATE                                   DATE
+ INVOICE_SHIP_DATE                         NOT NULL DATE
+ INVOICE_PO_NO                                      VARCHAR2(8)
+ INVOICE_TERM                                       VARCHAR2(20)
+ CUSTOMER_NO                               NOT NULL NUMBER(4)
+ SALES_REP_NO                              NOT NULL NUMBER(4)
+
+SQL> DESCRIBE items_sold_dd
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ INVOICE_NO                                NOT NULL CHAR(8)
+ ITEM_CODE                                 NOT NULL CHAR(6)
+ ITEM_QUANTITY_SOLD                        NOT NULL NUMBER(2)
+ ITEM_PRICE_EACH                           NOT NULL NUMBER(5,2)
+
+SQL> 

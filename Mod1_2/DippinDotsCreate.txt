@@ -1,0 +1,153 @@
+-- create tables
+
+-- create items_dd
+
+CREATE TABLE items_dd
+(
+item_code CHAR(6)
+    CONSTRAINT items_dd_item_code_pk PRIMARY KEY,
+item_description VARCHAR2(30)
+    CONSTRAINT items_dd_item_descript_nn NOT NULL,
+item_price_each NUMBER(5,2)
+    CONSTRAINT items_dd_item_price_each_nn NOT NULL
+);
+
+
+-- create sales_reps_dd
+
+CREATE TABLE sales_reps_dd
+(
+sales_rep_no NUMBER(4)
+    CONSTRAINT sles_reps_dd_sales_rep_no_pk PRIMARY KEY,
+sales_rep_last_name VARCHAR2(30)
+    CONSTRAINT sles_reps_dd_sles_rp_lst_nm_nn NOT NULL,
+sales_rep_first_name VARCHAR2(30)
+    CONSTRAINT sles_reps_dd_sles_rp_fir_nm_nn NOT NULL
+);
+
+
+-- create ship_tos_dd
+
+CREATE TABLE ship_tos_dd
+(
+ship_to_no NUMBER(4)
+    CONSTRAINT shp_tos_dd_shp_to_no_pk PRIMARY KEY,
+ship_to_name VARCHAR2(40)
+    CONSTRAINT shp_tos_dd_shp_to_name_nn NOT NULL,
+ship_to_street VARCHAR2(30)
+    CONSTRAINT shp_tos_dd_shp_to_str_nn NOT NULL,
+ship_to_city VARCHAR2(35)
+    CONSTRAINT shp_tos_dd_shp_to_cty_nn NOT NULL,
+ship_to_state CHAR(2)
+    CONSTRAINT shp_tos_dd_shp_to_st_nn NOT NULL,
+ship_to_zipcode CHAR(5)
+    CONSTRAINT shp_tos_dd_shp_to_zip_nn NOT NULL,
+ship_to_contact_name VARCHAR2(20)
+    CONSTRAINT shp_tos_dd_shp_to_cont_name_nn NOT NULL,
+ship_to_phone_no CHAR(10)
+    CONSTRAINT shp_tos_dd_shp_to_ph_no_nn NOT NULL
+);
+
+
+-- create bill_tos_dd
+
+CREATE TABLE bill_tos_dd
+(
+bill_to_no NUMBER(4)
+    CONSTRAINT bil_tos_dd_bil_to_no_pk PRIMARY KEY,
+bill_to_name VARCHAR2(40)
+    CONSTRAINT bil_tos_dd_bil_to_name_nn NOT NULL,
+bill_to_street VARCHAR2(30)
+    CONSTRAINT bil_tos_dd_bil_to_str_nn NOT NULL,
+bill_to_city VARCHAR2(35)
+    CONSTRAINT bil_tos_dd_bil_to_cty_nn NOT NULL,
+bill_to_state CHAR(2)
+    CONSTRAINT bil_tos_dd_bil_to_st_nn NOT NULL,
+bill_to_zipcode CHAR(5)
+    CONSTRAINT bil_tos_dd_bil_to_zip_nn NOT NULL,
+bill_to_contact_name VARCHAR2(20)
+    CONSTRAINT bil_tos_dd_bil_to_cont_name_nn NOT NULL,
+bill_to_phone_no CHAR(10)
+    CONSTRAINT bil_tos_dd_bil_to_ph_no_nn NOT NULL
+);
+
+
+-- create customers_dd
+
+CREATE TABLE customers_dd
+(
+customer_no NUMBER(4)
+    CONSTRAINT cust_dd_cust_no_pk PRIMARY KEY,
+bill_to_no NUMBER(4)
+    CONSTRAINT cust_dd_bill_to_no_nn NOT NULL
+    CONSTRAINT cust_dd_bill_to_no_fk1
+        REFERENCES bill_tos_dd (bill_to_no),
+ship_to_no NUMBER(4)
+    CONSTRAINT cust_dd_shp_to_no_nn NOT NULL
+    CONSTRAINT cust_dd_shp_to_no_fk2
+        REFERENCES ship_tos_dd (ship_to_no)
+);
+
+
+-- create invoices_dd
+
+CREATE TABLE invoices_dd
+(
+invoice_no CHAR(8)
+    CONSTRAINT inv_dd_inv_no_pk PRIMARY KEY,
+invoice_date DATE
+    CONSTRAINT inv_dd_inv_date_nn NOT NULL,
+invoice_due_date DATE
+invoice_ship_date DATE
+    CONSTRAINT inv_dd_inv_shp_date_nn NOT NULL,
+invoice_po_no VARCHAR2(8),
+invoice_term VARCHAR2(20),
+customer_no NUMBER(4)
+    CONSTRAINT inv_dd_cust_no_nn NOT NULL
+    CONSTRAINT inv_dd_cust_no_fk1
+        REFERENCES customers_dd (customer_no),
+sales_rep_no NUMBER(4)
+    CONSTRAINT inv_dd_sales_rep_no_nn NOT NULL
+    CONSTRAINT inv_dd_sales_rep_no_fk2
+        REFERENCES sales_reps_dd (sales_rep_no)
+);
+
+
+-- create items_sold_dd
+
+CREATE TABLE items_sold_dd
+(
+invoice_no CHAR(8)
+    CONSTRAINT items_sold_dd_inv_no_fk1
+        REFERENCES invoices_dd (invoice_no),
+item_code CHAR(6)
+    CONSTRAINT items_sold_dd_item_code_fk2
+        REFERENCES items_dd (item_code),
+item_quantity_sold NUMBER(2)
+    CONSTRAINT items_sold_dd_item_qty_sold_nn NOT NULL,
+item_price_each NUMBER(5,2)
+    CONSTRAINT items_sold_item_price_ea_nn NOT NULL,
+CONSTRAINT items_sold_inv_no_item_code_pk
+        PRIMARY KEY (invoice_no, item_code)
+);
+
+DESCRIBE items_dd
+DESCRIBE sales_reps_dd
+DESCRIBE ship_tos_dd
+DESCRIBE bill_tos_dd
+DESCRIBE customers_dd
+DESCRIBE invoices_dd
+DESCRIBE items_sold_dd
+
+DROP TABLE items_sold_dd;
+DROP TABLE invoices_dd;
+DROP TABLE customers_dd;
+DROP TABLE bill_tos_dd;
+DROP TABLE ship_tos_dd;
+DROP TABLE sales_reps_dd;
+DROP TABLE items_dd;
+
+
+-- Tells you what tables you have
+SELECT table_name
+FROM user_tables

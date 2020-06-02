@@ -1,0 +1,48 @@
+-- create tables
+SQL> 
+SQL> -- create items_dd
+SQL> 
+SQL> CREATE TABLE items_dd
+  2  (
+  3  item_code CHAR(6)
+  4      CONSTRAINT items_dd_item_code_pk PRIMARY KEY,
+  5  item_description VARCHAR2(30)
+  6      CONSTRAINT items_dd_item_descript_nn NOT NULL,
+  7  item_price_each NUMBER(5,2)
+  8      CONSTRAINT items_dd_item_price_each_nn NOT NULL
+  9  );
+CREATE TABLE items_dd
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> DROP TABLE items_sold_dd;
+
+Table dropped.
+
+SQL> DROP TABLE invoices_dd;
+
+Table dropped.
+
+SQL> DROP TABLE customers_dd;
+
+Table dropped.
+
+SQL> DROP TABLE bill_tos_dd;
+
+Table dropped.
+
+SQL> DROP TABLE ship_tos_dd;
+
+Table dropped.
+
+SQL> DROP TABLE sales_reps_dd;
+
+Table dropped.
+
+SQL> DROP TABLE items_dd;
+
+Table dropped.
+
+SQL> 

@@ -1,0 +1,46 @@
+CREATE TABLE examples
+  2  (num NUMBER(3)
+  3      CONSTRAINT example_num_pk PRIMARY KEY,
+  4  name VARCHAR2(15)
+  5      CONSTRAINT example_company_nn NOT NULL);
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> REM inserting  & in as data
+SQL> REM since & has a special meaning you must escape
+SQL> REM that meaning to use it as actual data
+SQL> INSERT INTO examples (num,name)
+  2  VALUES (111, 'Tom'  || ' & ' || 'Jerry');
+
+1 row created.
+
+SQL> 
+SQL> REM insert a single quote
+SQL> REM must use two single quotes next to each other
+SQL> REM the first escapes the special meaning of the other
+SQL> INSERT INTO examples (num,name)
+  2  VALUES (222, 'Tom''s Ribs');
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> SELECT *
+  2  FROM examples;
+
+      NUM NAME                                                                                      
+--------- ---------------                                                                           
+      111 Tom & Jerry                                                                               
+      222 Tom's Ribs                                                                                
+
+SQL> 
+SQL> 
+SQL> 
+SQL> DROP TABLE examples
+  2      CASCADE CONSTRAINTS;
+
+Table dropped.
+
+SQL> spool off;

@@ -1,0 +1,130 @@
+-- insert rows
+
+INSERT INTO items_dd
+(
+item_code,
+item_description,
+item_price_each
+)
+VALUES
+(
+'PCBS',
+'PRE-CUP BANANA SPLIT',
+2.00
+);
+
+
+INSERT INTO sales_reps_dd
+(
+sales_rep_no,
+sales_rep_last_name,
+sales_rep_first_name
+)
+VALUES
+(
+'100',
+'Manuel',
+'Jesus'
+);
+
+
+INSERT INTO ship_tos_dd
+(
+ship_to_no,
+ship_to_name,
+ship_to_street,
+ship_to_city,
+ship_to_sate,
+ship_to_zipcode,
+ship_to_contact_name,
+ship_to_phone_no
+)
+VALUES
+(
+'5000',
+'POMPANO BEACH HIGH SCHOOL',
+'600 NE 13th AVE',
+'Pompano Beach',
+'FL',
+'33060',
+'Chelson Exume',
+'954-297-7714'
+);
+
+
+INSERT INTO bill_tos_dd
+(
+bill_to_no,
+bill_to_name,
+bill_to_street,
+bill_to_city,
+bill_to_sate,
+bill_to_zipcode,
+bill_to_contact_name,
+bill_to_phone_no
+)
+VALUES
+(
+'4000',
+'POMPANO BEACH HIGH SCHOOL',
+'600 NE 13th AVE',
+'Pompano Beach',
+'FL',
+'33060',
+'Chelson Exume',
+'954-297-7714'
+);
+
+
+INSERT INTO customers_dd
+(
+customer_no,
+bill_to_no,
+ship_to_no
+)
+VALUES
+(
+'5500',
+'4000',
+'5000'
+);
+
+
+INSERT INTO invoices_dd
+(
+invoice_no,
+invoice_date,
+invoice_due_date,
+invoice_ship_date,
+invoice_po_no,
+invoice_term,
+customer_no,
+sales_rep_no
+)
+VALUES
+(
+'2015-5139',
+'5/5/2015',
+'5/5/2015',
+'5/5/2015',
+'2015-1234',
+'Due on recepit',
+'2000',
+'1000'
+);
+
+
+INSERT INTO items_sold_dd
+(
+invoice_no,
+item_code,
+item_quantity_sold,
+item_price_each
+)
+VALUES
+(
+'2015-5139',
+'PCBS',
+'24',
+2.00
+);

@@ -1,0 +1,362 @@
+--insert data into items_dd
+SQL> 
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCBS', 'PRE-CUP BANANA SPLIT', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCH', 'PRE-CUP CHOCOLATE', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCTC', 'PRE-CUP COTTON CANDY', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCRB', 'PRE-CUP RAINBOW ICE', 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCD', 'PRE-CUP CHOCOLATE COOKIE DOUGH', 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCCC', 'PRE-CUP COOKIES N CREAM', 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCSD', 'PRE-CUP SNICKERDOODLE', 3.50);
+
+1 row created.
+
+SQL> INSERT INTO items_dd (item_code, item_description, item_price_each)
+  2   VALUES ('PCBB', 'PRE-CUP BROWNIE BITES', 3.50);
+
+1 row created.
+
+SQL> 
+SQL> --insert data into sales_reps_dd
+SQL> 
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (sales_rep_no_seq.nextval, 'Manuel', 'Jesus');
+
+1 row created.
+
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (sales_rep_no_seq.nextval, 'Arnold', 'John');
+
+1 row created.
+
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (sales_rep_no_seq.nextval, 'Smith', 'Keith');
+
+1 row created.
+
+SQL> INSERT INTO sales_reps_dd (sales_rep_no, sales_rep_last_name, sales_rep_first_name)
+  2   VALUES (sales_rep_no_seq.nextval, 'Shoeler', 'Pablo');
+
+1 row created.
+
+SQL> 
+SQL> --insert data into ship_tos_dd
+SQL> 
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (ship_to_no_seq.nextval, 'POMPANO BEACH HIGH SCHOOL', '600 NE 13th AVE', 'Pompano Beach', 'FL', '33060', 'Chelson Exume', '9542977714');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (ship_to_no_seq.nextval, 'FLORIDA ATLANTIC UNIVERSITY', '777 Glades Rd', 'Boca Raton', 'FL', '33431', 'Sandy Carter', '5612976000');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (ship_to_no_seq.nextval, 'PALM BEACH STATE COLLEGE', '4200 Congress AVE', 'Lake Worth', 'FL', '33461', 'Ava Parker', '5619677222');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (ship_to_no_seq.nextval, 'BOCA RATON HIGH SCHOOL', '1501 NW 15th Ct', 'Boca Raton', 'FL', '33486', 'Susie King', '5613381400');
+
+1 row created.
+
+SQL> INSERT INTO ship_tos_dd (ship_to_no, ship_to_name, ship_to_street, ship_to_city, ship_to_state, ship_to_zipcode, ship_to_contact_name, ship_to_phone_no)
+  2   VALUES (ship_to_no_seq.nextval, 'BLANCHE ELY HIGH SCHOOL', '1200 NW 6th AVE', 'Pompano Beach', 'FL', '33060', 'Karlton Johnson', '7543220950');
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> --insert data into bill_tos_dd
+SQL> 
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (bill_to_no_seq.nextval, 'POMPANO BEACH HIGH SCHOOL', '600 NE 13th AVE', 'Pompano Beach', 'FL', '33060', 'Chelson Exume', '9542977714');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (bill_to_no_seq.nextval, 'FLORIDA ATLANTIC UNIVERSITY', '777 Glades Rd', 'Boca Raton', 'FL', '33431', 'Sandy Carter', '5612976000');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (bill_to_no_seq.nextval, 'PALM BEACH STATE COLLEGE', '4200 Congress AVE', 'Lake Worth', 'FL', '33461', 'Ava Parker', '5619677222');
+
+1 row created.
+
+SQL> INSERT INTO bill_tos_dd (bill_to_no, bill_to_name, bill_to_street, bill_to_city, bill_to_state, bill_to_zipcode, bill_to_contact_name, bill_to_phone_no)
+  2   VALUES (bill_to_no_seq.nextval, 'BOCA RATON HIGH SCHOOL', '1501 NW 15th Ct', 'Boca Raton', 'FL', '33486', 'Susie King', '5613381400');
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> --insert data into customers_dd
+SQL> 
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5500, 4000, 5000);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5501, 4001, 5001);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5502, 4002, 5002);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5503, 4003, 5003);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5504, 4000, 5004);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5505, 4002, 5002);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5506, 4001, 5000);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5507, 4003, 5004);
+
+1 row created.
+
+SQL> INSERT INTO customers_dd (customer_no, bill_to_no, ship_to_no)
+  2   VALUES (5508, 4001, 5003);
+
+1 row created.
+
+SQL> 
+SQL> --insert data into invoices_dd
+SQL> 
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('2015-5139', '5-May-2015', '5-May-2015', '5-May-2015', 'PO813', 'Due on receipt', 5500, 100);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('2015-5140', '6-May-2015', '6-May-2015', '6-May-2015', 'PP180712', 'Due upon delivery', 5501, 101);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('2015-5141', '7-May-2015', '7-May-2015', '7-May-2015', '3245', '2/10 net 30', 5502, 102);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('2015-5142', '8-May-2015', '8-May-2015', '8-May-2015', 'P590', 'Due on receipt', 5503, 103);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('2015-5143', '9-May-2015', '11-May-2015', '11-May-2015', '8345', 'Due end of day', 5504, 103);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('2015-5144', '10-May-2015', '12-May-2015', '12-May-2015', 'PN201872', 'Due on receipt', 5505, 100);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('2015-5145', '11-May-2015', '13-May-2015', '13-May-2015', '18-0078', 'Due upon delivery', 5506, 101);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('2015-5146', '12-May-2015', '14-May-2015', '14-May-2015', '617', '2/10 net 30', 5507, 102);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('2015-5147', '13-May-2015', '15-May-2015', '15-May-2015', '7714', 'Due on receipt', 5508, 103);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('2015-5148', '14-May-2015', '18-May-2015', '18-May-2015', '8359', 'Due end of day', 5504, 103);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('2015-5149', '15-May-2015', '19-May-2015', '19-May-2015', 'PO827', 'Due on receipt', 5500, 100);
+
+1 row created.
+
+SQL> INSERT INTO invoices_dd (invoice_no, invoice_date, invoice_due_date, invoice_ship_date, invoice_po_no, invoice_term, customer_no, sales_rep_no)
+  2   VALUES ('2015-5150', '16-May-2015', '20-May-2015', '20-May-2015', 'PP180712', 'Due upon delivery', 5501, 101);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> --insert data into items_sold_dd
+SQL> 
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5139', 'PCBS', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5139', 'PCCH', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5139', 'PCCTC', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5139', 'PCRB', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5140', 'PCCD', 12, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5141', 'PCCC', 60, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5141', 'PCCD', 60, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5142', 'PCBS', 60, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5142', 'PCCH', 60, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5142', 'PCCC', 60, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5143', 'PCBS', 36, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5143', 'PCCH', 36, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5144', 'PCCC', 24, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5144', 'PCBS', 48, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5145', 'PCBS', 48, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5146', 'PCRB', 60, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5146', 'PCCH', 60, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5147', 'PCCD', 60, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5147', 'PCCH', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5148', 'PCCC', 12, 3.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5149', 'PCCH', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5150', 'PCCH', 24, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5150', 'PCBS', 60, 2.00);
+
+1 row created.
+
+SQL> INSERT INTO items_sold_dd (invoice_no, item_code, item_quantity_sold, item_price_each)
+  2   VALUES ('2015-5150', 'PCCTC', 24, 2.00);
+
+1 row created.
+
+SQL> 
